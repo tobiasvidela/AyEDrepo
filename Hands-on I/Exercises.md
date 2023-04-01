@@ -49,10 +49,10 @@ Use the previous algorithm to create three new algorithms that can solve the oth
 ### Task 3:
 Write an algorithm to solve the problem of swapping the values of two variables.
 
-For example, if I have variable <span style="background: rgba(135,131,120,0.15);color: #EB5757;border-radius: 3px;font-size: 85%;padding: 0.2em 0.4em;">A</span> with value 1 and variable <span style="background: rgba(135,131,120,0.15);color: #EB5757;border-radius: 3px;font-size: 85%;padding: 0.2em 0.4em;">B</span> with value 2, I should obtain the following final result:
+For example, if I have variable A with value 1 and variable B with value 2, I should obtain the following final result:
 
-+ Variable <span style="background: rgba(135,131,120,0.15);color: #EB5757;border-radius: 3px;font-size: 85%;padding: 0.2em 0.4em;">A</span> should contain what was in <span style="background: rgba(135,131,120,0.15);color: #EB5757;border-radius: 3px;font-size: 85%;padding: 0.2em 0.4em;">B</span> (2).
-+ Variable <span style="background: rgba(135,131,120,0.15);color: #EB5757;border-radius: 3px;font-size: 85%;padding: 0.2em 0.4em;">B</span> should contain what was in <span style="background: rgba(135,131,120,0.15);color: #EB5757;border-radius: 3px;font-size: 85%;padding: 0.2em 0.4em;">A</span> (1).
++ Variable A should contain what was in B (2).
++ Variable B should contain what was in A (1).
 - - -
     ALGORITHM swapValues
         int A = 1, B = 2, temp;
@@ -78,4 +78,6 @@ Modify the previous algorithm to allow the values of the variables to be entered
         B = temp;
         print("A = " + A + "\nB = " + B);
     END
-<span style="font-size: 10px"> ___Videla Guliotti, Tobías Uriel___ | ___DNI___ _44.246.096_ | ___01/04/23___ </span>
+- - -
+___Videla Guliotti, Tobías Uriel___ | ___DNI___ _44.246.096_ | ___01/04/23___
+- - -
