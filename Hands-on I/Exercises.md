@@ -78,3 +78,4 @@ Modify the previous algorithm to allow the values of the variables to be entered
         B = temp;
         print("A = " + A + "\nB = " + B);
     END
+###### ___Videla Guliotti, Tobías Uriel___ | ___DNI___ _44.246.096_ | ___01/04/23___
