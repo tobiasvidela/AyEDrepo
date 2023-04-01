@@ -1,3 +1,5 @@
-# Exercises Repo
+# Exercises Repository
+This is a repository for the exercises of __Algortihms and Data Structure__ 2023 cohort.
 
-This is a repository for the exercises of Algortihms and Data Structure 2023 cohort.
+Explore the __folders__ to find the files with the __exercises solved__.
+###### ___Videla Guliotti, Tobías Uriel___ | ___DNI___ _44.246.096_ | ___01/04/23___
