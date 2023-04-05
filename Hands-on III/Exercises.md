@@ -70,17 +70,40 @@ Develop an algorithm that calculates the square of the first 9 natural numbers.
         print("That's all. See you.");
     }
 - - -
+### Task 3:
+Write an algorithm that calculates the sum of the first N natural numbers. N will be read from the keyboard.
+- - -
+    ALGORITHM summation { //of the first N natural numbers
+        //variables
+        int i = 1, value; //i from iteration
+        int sum = 0;
+
+        //presentation
+        print("--- Calculate the sum of the first N natural numbers --- \n");
+
+        //ask for {value}
+        print(" Please, enter the value for N (1, 2, 89, etc): \n");
+        scan(value);
+
+        //calculate the summation of the first {value} natural numbers
+        while (i <= value) {
+            sum += i;
+            i++;
+        };
+
+        //print the summation of the first {value} natural numbers
+        if (value <= 0) {
+            print(" Please, enter an integer bigger than zero next time. \n");
+        } else {
+            print("The summation is: " + sum);
+        };
+    };
+- - -
 ### Task N:
 Description.
 - - -
     ALGORITHM something {
-    }
-- - -
-### Task N:
-Description.
-- - -
-    ALGORITHM something {
-    }
+    };
 - - -
 ___Videla Guliotti, Tobías Uriel___ | ___DNI___ _44.246.096_ | ___05/04/23___
 - - -
