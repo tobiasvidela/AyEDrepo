@@ -75,14 +75,14 @@ Write an algorithm that calculates the sum of the first N natural numbers. N wil
 - - -
     ALGORITHM summation { //of the first N natural numbers
         //variables
-        int i = 1, value; //i from iteration
+        int i = 1, value;
         int sum = 0;
 
         //presentation
         print("--- Calculate the sum of the first N natural numbers --- \n");
 
         //ask for {value}
-        print(" Please, enter the value for N (1, 2, 89, etc): \n");
+        print(" Please, enter the value for N (1, 7, 12, etc): \n");
         scan(value);
 
         //calculate the summation of the first {value} natural numbers
@@ -92,6 +92,36 @@ Write an algorithm that calculates the sum of the first N natural numbers. N wil
         };
 
         //print the summation of the first {value} natural numbers
+        if (value <= 0) {
+            print(" Please, enter an integer bigger than zero next time. \n");
+        } else {
+            print("The summation is: " + sum);
+        };
+    };
+- - -
+### Task 4:
+Write an algorithm that calculates the sum of the first N even numbers.
+- - -
+    ALGORITHM evenSummation { //of the first N even numbers
+        //variables
+        int i = 1;
+        int value;
+        int sum = 0;
+
+        //presentation
+        print("--- Calculate the sum of the first N even numbers --- \n");
+
+        //ask for {value}
+        print(" Please, enter the value for N (1, 5, 73[PLEASE DON'T], 10, etc): \n");
+        scan(value);
+
+        //calculate the summation of the first {value} even numbers
+        while (i <= value) {
+            sum += 2 * i;
+            i++;
+        };
+
+        //print the summation of the first {value} even numbers
         if (value <= 0) {
             print(" Please, enter an integer bigger than zero next time. \n");
         } else {
