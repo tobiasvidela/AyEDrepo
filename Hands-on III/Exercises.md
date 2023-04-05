@@ -184,11 +184,102 @@ Write an algorithm that reads integer numbers until 0 is typed, and shows us the
         print("\n Average = " + avg + ". \n");
     };
 - - -
+
+AUTHOR'S NOTE:
+
+I tried to use only _while_ loops in the previous exercises. Now I won't limit myself to that.
+
 ### Task 6:
 Write a menu for our calculator.
 - - -
+    //introducing the function system(cls): clears the prints on the screen
+    //introducing the function system(pause): waits before proceeding with the program
+    
     ALGORITHM calculatorWithMenu {
-    };
+        //variables
+        int sel; //selector
+        float op1; //operand1
+        float op2; //operand2
+        float r; //result
+
+        //menu
+        do {
+            system(cls);
+            print("------- BASIC CALCULATOR ------- \n\n");
+            print("1. Add two numbers.\n");
+            print("2. Subtract two numbers.\n");
+            print("3. Multiply two numbers.\n");
+            print("4. Divide two numbers.\n");
+            print("5. Exit.\n\n");
+            print("-------------------------------- \n\n");
+            print("Select: ");
+            scan(sel);
+            switch(sel){ //submenus
+                case 1:
+                    system(cls);
+                    print("------- BASIC CALCULATOR ------- \n\n");
+                    print("----------- Addition ----------- \n");
+                    print("Enter the first value: ");
+                    scan(op1);
+                    print("\nEnter the last value: ");
+                    scan(op2);
+                    r = op1 + op2;
+                    print("\nThe result is: " + r + ". \n");
+                    print("-------------------------------- \n\n");
+                    system(pause);
+                    break;
+                case 2:
+                    system(cls);
+                    print("------- BASIC CALCULATOR ------- \n\n");
+                    print("---------- Subtraction --------- \n");
+                    print("Enter the first value: ");
+                    scan(op1);
+                    print("\nEnter the last value: ");
+                    scan(op2);
+                    r = op1 - op2;
+                    print("\nThe result is: " + r + ". \n");
+                    print("-------------------------------- \n\n");
+                    system(pause);
+                    break;
+                case 3:
+                    system(cls);
+                    print("------- BASIC CALCULATOR ------- \n\n");
+                    print("-------- Multiplication -------- \n");
+                    print("Enter the first value: ");
+                    scan(op1);
+                    print("\nEnter the last value: ");
+                    scan(op2);
+                    r = op1 * op2;
+                    print("\nThe result is: " + r + ". \n");
+                    print("-------------------------------- \n\n");
+                    system(pause);
+                    break;
+                case 4:
+                    system(cls);
+                    print("------- BASIC CALCULATOR ------- \n\n");
+                    print("----------- Division ----------- \n");
+                    print("Enter the first value: ");
+                    scan(op1);
+                    do {
+                        print("\nEnter the last value (Not Zero): ");
+                        scan(op2);
+                    } while (op2 == 0);
+                    r = op1 / op2;
+                    print("\nThe result is: " + r + ". \n");
+                    print("-------------------------------- \n\n");
+                    system(pause);
+                    break;
+                case 5:
+                    break;
+                default:
+                    system(cls);
+                    print("That option does not exists.\n");
+                    system(pause);
+                    break;
+            }
+        } while (sel != 5);
+        return 0;
+    }
 - - -
 ___Videla Guliotti, Tobías Uriel___ | ___DNI___ _44.246.096_ | ___05/04/23___
 - - -
