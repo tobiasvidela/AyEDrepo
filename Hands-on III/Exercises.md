@@ -48,6 +48,34 @@ Create an algorithm that, given an integer, displays on the screen whether it is
         print(answer);
     };
 - - -
+### Task 2:
+Develop an algorithm that calculates the square of the first 9 natural numbers.
+- - -
+    ALGORITHM squareOf9 {
+        //variables
+        int number = 1;
+        int square;
+
+        //presentation
+        print("--- Square of the first 9 natural numbers --- \n");
+        //First 9 natural numbers: 1, 2, 3, 4, 5, 6, 7, 8, and 9.
+
+        //calculate and print
+        while (number < 10) { //or number <= 9
+            print("\n Calculating the square of " + number + "... \n");
+            square = number * number;
+            print(square);
+            number ++; 
+        };
+        print("That's all. See you.");
+    }
+- - -
+### Task N:
+Description.
+- - -
+    ALGORITHM something {
+    }
+- - -
 ### Task N:
 Description.
 - - -
