@@ -147,15 +147,54 @@ Write an algorithm that tells us whether a person can enroll in the university.
 Use the algorithms from ___Manos a la obra I___ to build a calculator that can solve basic operations. The calculator should be limited to one operator and two operands, which should be requested from the user.
 - - -
     ALGORITHM calculator {
+        //I will not use loops until they are requested
         //variables
-        float op1, op2, r;
+        float op1, op2, r = 0;
+        char op;
 
         //presentation
-        print("----- CALCULATOR -----\n");
+        print("---------------- CALCULATOR ----------------\n");
+        print("--- Basic operations between two (real) numbers. ---\n");
+
         //ask for operand1
+        print(" Enter the first value: \n");
+        scan(op1);
+
         //ask for operator
+        print(" Enter an operator ('+', '-', '*', or '/'): \n");
+        scan(op);
+
         //ask for operand2
+        print(" Enter the last value: \n");
+        scan(op2);
+        print(" ... \n");
+
         //calculate
-        //print the result
+        switch(op) {
+            case '+':
+                r = op1 + op2;
+                break;
+            case '-':
+                r = op1 - op2;
+                break;
+            case '*':
+                r = op1 * op2;
+                break;
+            case '/':
+                if (op2 == 0) {
+                    print(" I can not divide by zero. \n");
+                } else {
+                    r = op1 / op2;
+                };
+                break;
+            default:
+                print("There was an error with the operator while calculating.");
+                break;
+        };
+
+        //display the result
+        print(" The final result was: " + r + ". \n");
     };
+- - -
+___Videla Guliotti, Tobías Uriel___ | ___DNI___ _44.246.096_ | ___05/04/23___
 - - -
