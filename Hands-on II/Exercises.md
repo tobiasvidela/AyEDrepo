@@ -70,3 +70,37 @@ Modifiy the previous algorithm to work with three numbers instead of two.
     };
 - - -
 Skipping tasks 3, 4 and 5...
+- - -
+### Task 6:
+Write an algorithm that, given an integer, displays on the screen whether it is even or odd. In the case of being 0, it should display 'the number is neither even nor odd'.
+- - -
+    ALGORITHM evenOrOdd {
+        //variables
+        int value;
+        char answer[50];
+
+        //ask for the value
+        print("----Is it Even or Odd?----\n Enter a number to evaluate: \n");
+        scan(value);
+
+        //evaluate value
+        if (value == 0) {
+            answer = "The value is neither even nor odd";
+        } else {
+            if (value % 2 == 0) {
+                answer = "The value is even";
+            } else {
+                answer = "The value is odd";
+            };
+        };
+
+        //display the answer on the screen
+        print(answer);
+    };
+- - -
+### Task N:
+
+- - -
+    ALGORITHM something {
+    };
+- - -
