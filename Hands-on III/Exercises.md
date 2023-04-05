@@ -129,10 +129,65 @@ Write an algorithm that calculates the sum of the first N even numbers.
         };
     };
 - - -
-### Task N:
-Description.
+### Task 5:
+Write an algorithm that reads integer numbers until 0 is typed, and shows us the maximum, minimum, and average of all of them.
 - - -
-    ALGORITHM something {
+    ALGORITHM max_min_avg {
+        //variables
+        int i = 1;
+        int accum = 0;
+        int number;
+        int max = 0;
+        int min = 0;
+        float avg = 0;
+
+        //presentation
+        print("--- Maximum, Minimum and Average of N Integers --- \n");
+        print(" Enter multiple integer numbers as you want. Until you enter 0, it won't stop. \n");
+
+        //ask for numbers until 0 is typed
+        print(" Enter integers: \n");
+        scan(number);
+
+        while (number != 0) {
+
+            //first max and min values
+            if (max == 0) {
+                max = number;
+            };
+            if (min == 0) {
+                min = number;
+            };
+
+            //evaluate max and min
+            if (number > max) {
+                max = number;
+            };
+            if (number < min) {
+                min = number;
+            };
+
+            //calculate average
+            accum += number;
+            avg = accum / i;
+
+            //increment amount of numbers
+            i++;
+
+            //ask for an integer again
+            scan(number);
+        };
+
+        //when 0 is typed
+        print("\n Maximum = " + max + ". \n");
+        print("\n Minimum = " + min + ". \n");
+        print("\n Average = " + avg + ". \n");
+    };
+- - -
+### Task 6:
+Write a menu for our calculator.
+- - -
+    ALGORITHM calculatorWithMenu {
     };
 - - -
 ___Videla Guliotti, Tobías Uriel___ | ___DNI___ _44.246.096_ | ___05/04/23___
