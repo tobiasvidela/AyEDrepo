@@ -98,6 +98,51 @@ Write an algorithm that, given an integer, displays on the screen whether it is 
         print(answer);
     };
 - - -
+### Task 7:
+Write an algorithm that tells us whether a person can enroll in the university.
++ A person must have completed high school to gain access to the university.
++ Without a high school degree, who are over 25 years old can also gain access if they pass an entrance exam.
+- - -
+    ALGORITHM accessToUniversity {
+        //variables
+        bool highSchoolDegree;
+        bool age25;
+        bool examPassed;
+        char yesOrNo;
+
+        //presentation
+        print("----Can I enroll in University?----\n");
+
+        //ask for a high school degree
+        print("Do you have a High School Degree? Type 'y' (yes) or 'n' (no) \n");
+        scan(yesOrNo);
+
+        //evaluate the acces to the university
+        highSchoolDegree = (yesOrNo == 'y') ? true : false;
+
+        if (highSchoolDegree) {
+            print("\n You can apply to the University. \n");
+        } else { //asks for the age
+            print("\n Are you 25 or older? Type 'y' (yes) or 'n' (no) \n");
+            scan(yesOrNo);
+            age25 = (yesOrNo == 'y' ) ? true : false;
+
+            if (age25) { //ask for the entrance exam
+                print("\n Did you pass the entrance exam? Type 'y' (yes) or 'n' (no) \n");
+                scan(yesOrNo);
+                examPassed = (yesOrNo == 'y') ? true : false;
+
+                if (examPassed) {
+                    print("\n You can apply to the University. \n");
+                } else {
+                    print("\n You can´t enroll in University. \n");
+                };
+            } else {
+                print("\n You can´t enroll in University.\n");
+            };
+        };
+    };
+- - -
 ### Task N:
 
 - - -
