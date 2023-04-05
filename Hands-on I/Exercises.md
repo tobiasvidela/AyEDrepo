@@ -68,15 +68,15 @@ Modify the previous algorithm to allow the values of the variables to be entered
 - - -
     ALGORITHM swapValues
         int A, B, temp;
-        print("Enter a number: ");
+        print("Enter a value for A: ");
         scan(a);
-        print("Enter a second number: ");
+        print("Enter a value for B: ");
         scan(b);
         print("A = " + A + "\nB = " + B + "\n...Swapping...\n");
         temp = A;
         A = B;
         B = temp;
-        print("A = " + A + "\nB = " + B);
+        print(Now A = " + A + "\nB = " + B);
     END
 - - -
 ___Videla Guliotti, Tobías Uriel___ | ___DNI___ _44.246.096_ | ___01/04/23___
