@@ -143,9 +143,19 @@ Write an algorithm that tells us whether a person can enroll in the university.
         };
     };
 - - -
-### Task N:
-
+### Integrative Task:
+Use the algorithms from ___Manos a la obra I___ to build a calculator that can solve basic operations. The calculator should be limited to one operator and two operands, which should be requested from the user.
 - - -
-    ALGORITHM something {
+    ALGORITHM calculator {
+        //variables
+        float op1, op2, r;
+
+        //presentation
+        print("----- CALCULATOR -----\n");
+        //ask for operand1
+        //ask for operator
+        //ask for operand2
+        //calculate
+        //print the result
     };
 - - -
