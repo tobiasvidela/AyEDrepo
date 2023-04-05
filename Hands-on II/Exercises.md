@@ -144,7 +144,7 @@ Write an algorithm that tells us whether a person can enroll in the university.
     };
 - - -
 ### Integrative Task:
-Use the algorithms from ___Manos a la obra I___ to build a calculator that can solve basic operations. The calculator should be limited to one operator and two operands, which should be requested from the user.
+Use the algorithms from ___Manos a la obra I___ to build a calculator that can solve _basic operations_. The calculator should be limited to one operator and two operands, which should be requested from the user.
 - - -
     ALGORITHM calculator {
         //I will not use loops until they are requested
