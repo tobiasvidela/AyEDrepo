@@ -282,7 +282,6 @@ Write a menu for our calculator.
         print("\n Exiting... \n");
 
     }
-
 - - -
 ___Videla Guliotti, Tobías Uriel___ | ___DNI___ _44.246.096_ | ___05/04/23___
 - - -
