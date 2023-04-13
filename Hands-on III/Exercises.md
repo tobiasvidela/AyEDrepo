@@ -192,94 +192,97 @@ I tried to use only _while_ loops in the previous exercises. Now I won't limit m
 ### Task 6:
 Write a menu for our calculator.
 - - -
-    //introducing the function system(cls): clears the prints on the screen
-    //introducing the function system(pause): waits before proceeding with the program
+    //introducing the function system("cls"): clears the screen (for windows)
+    //introducing the function system("pause"): waits before proceeding with the program ("Press a key to continue...")
     
-    ALGORITHM calculatorWithMenu {
+    ALGORITHM calculator {
         //variables
         int sel; //selector
-        float op1; //operand1
-        float op2; //operand2
+        float op1; //operand 1
+        float op2; //operand 2
         float r; //result
 
         //menu
         do {
-            system(cls);
+            system("cls");
             print("------- BASIC CALCULATOR ------- \n\n");
-            print("1. Add two numbers.\n");
-            print("2. Subtract two numbers.\n");
-            print("3. Multiply two numbers.\n");
-            print("4. Divide two numbers.\n");
-            print("5. Exit.\n\n");
+            print(" 1. Add two numbers.\n");
+            print(" 2. Subtract two numbers.\n");
+            print(" 3. Multiply two numbers.\n");
+            print(" 4. Divide two numbers.\n");
+            print(" 5. Exit.\n\n");
             print("-------------------------------- \n\n");
-            print("Select: ");
+            print(" Select: ");
             scan(sel);
-            switch(sel){ //submenus
+            switch(sel){ //sub menus
                 case 1:
-                    system(cls);
-                    print("------- BASIC CALCULATOR ------- \n\n");
-                    print("----------- Addition ----------- \n");
-                    print("Enter the first value: ");
+                    system("cls");
+                    print("------- BASIC CALCULATOR ------- \n");
+                    print("----------- Addition ----------- \n\n");
+                    print(" Enter the first value: ");
                     scan(op1);
-                    print("\nEnter the last value: ");
+                    print("\n Enter the last value: ");
                     scan(op2);
                     r = op1 + op2;
-                    print("\nThe result is: " + r + ". \n");
-                    print("-------------------------------- \n\n");
-                    system(pause);
+                    print("\n The result is: " + r + "\n\n");
+                    print("-------------------------------- \n\n\n");
+                    system("pause");
                     break;
                 case 2:
-                    system(cls);
-                    print("------- BASIC CALCULATOR ------- \n\n");
-                    print("---------- Subtraction --------- \n");
-                    print("Enter the first value: ");
+                    system("cls");
+                    print("------- BASIC CALCULATOR ------- \n");
+                    print("---------- Subtraction --------- \n\n");
+                    print(" Enter the first value: ");
                     scan(op1);
-                    print("\nEnter the last value: ");
+                    print("\n Enter the last value: ");
                     scan(op2);
                     r = op1 - op2;
-                    print("\nThe result is: " + r + ". \n");
-                    print("-------------------------------- \n\n");
-                    system(pause);
+                    print("\n The result is: " + r + "\n\n");
+                    print("-------------------------------- \n\n\n");
+                    system("pause");
                     break;
                 case 3:
-                    system(cls);
-                    print("------- BASIC CALCULATOR ------- \n\n");
-                    print("-------- Multiplication -------- \n");
-                    print("Enter the first value: ");
+                    system("cls");
+                    print("------- BASIC CALCULATOR ------- \n");
+                    print("-------- Multiplication -------- \n\n");
+                    print(" Enter the first value: ");
                     scan(op1);
-                    print("\nEnter the last value: ");
+                    print("\n Enter the last value: ");
                     scan(op2);
                     r = op1 * op2;
-                    print("\nThe result is: " + r + ". \n");
-                    print("-------------------------------- \n\n");
-                    system(pause);
+                    print("\n The result is: " + r + "\n\n");
+                    print("-------------------------------- \n\n\n");
+                    system("pause");
                     break;
                 case 4:
-                    system(cls);
-                    print("------- BASIC CALCULATOR ------- \n\n");
-                    print("----------- Division ----------- \n");
-                    print("Enter the first value: ");
+                    system("cls");
+                    print("------- BASIC CALCULATOR ------- \n");
+                    print("----------- Division ----------- \n\n");
+                    print(" Enter the first value: ");
                     scan(op1);
                     do {
-                        print("\nEnter the last value (Not Zero): ");
+                        print("\n Enter the last value (Not Zero): ");
                         scan(op2);
                     } while (op2 == 0);
                     r = op1 / op2;
-                    print("\nThe result is: " + r + ". \n");
-                    print("-------------------------------- \n\n");
-                    system(pause);
+                    print("\n The result is: " + r + "\n\n");
+                    print("-------------------------------- \n\n\n");
+                    system("pause");
                     break;
                 case 5:
                     break;
                 default:
-                    system(cls);
-                    print("That option does not exists.\n");
-                    system(pause);
+                    system("cls");
+                    print(" That option does not exists.\n\n");
+                    system("pause");
                     break;
             }
         } while (sel != 5);
-        return 0;
+
+        print("\n Exiting... \n");
+
     }
+
 - - -
 ___Videla Guliotti, Tobías Uriel___ | ___DNI___ _44.246.096_ | ___05/04/23___
 - - -
