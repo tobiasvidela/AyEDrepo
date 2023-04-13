@@ -11,6 +11,25 @@ Rewrite your calculator using the power of procedures and functions to improve r
 
         //procedures and functions
 
+        //print menu
+        void printMenu(){
+            system("cls");
+            print("\n  --------- BASIC CALCULATOR ---------  \n");
+            print(" 1. Add two numbers\n");
+            print(" 2. Subtract two numbers\n");
+            print(" 3. Multiply two numbers\n");
+            print(" 4. Divide two numbers\n");
+            print(" 5. Exit\n\n");
+            print(" Select: \n\n");
+        }
+
+        //print sub menu
+        void printSubMenu(string operation){
+            system("cls");
+            print("\n  --------- BASIC CALCULATOR ---------  \n");
+            print(operation);
+        }
+
         //add
         float add(float num1, float num2){
             return num1 + num2;
@@ -27,7 +46,7 @@ Rewrite your calculator using the power of procedures and functions to improve r
         }
 
         //divide
-        float multiply(float num1, float num2){
+        float divide(float num1, float num2){
             while (num2 == 0){
                 scan(num2);
             }
@@ -53,12 +72,18 @@ Rewrite your calculator using the power of procedures and functions to improve r
                     return "Exiting...";
                     break;
                 default:
-                    return "error";
+                    return "Incorrect selection. Please enter a correct integer number (1-5).";
                     break;
             }
         }
 
-        //select operation to do
+        //ask for operand
+        void askOperand(float number){
+            print("Enter a number: \n");
+            scan(number);
+        }
+
+        //operate
         float calculate(int selector){
             switch(selector) {
                 case 1:
@@ -81,37 +106,15 @@ Rewrite your calculator using the power of procedures and functions to improve r
                     askOperand(op2);
                     return divide(op1,op2);
                     break;
+                default:
+                    return 0;
+                    break;
             }
         }
 
-        //calculate
+        //print result
         void printResult(float result){
             print("The result is: " + result + " \n\n");
-        }
-
-        //ask for operand
-        void askOperand(float number){
-            print("Enter a number: \n");
-            scan(number);
-        }
-
-        //print menu
-        void printMenu(){
-            system("cls");
-            print("\n  --------- BASIC CALCULATOR ---------  \n");
-            print(" 1. Add two numbers\n")
-            print(" 2. Subtract two numbers\n")
-            print(" 3. Multiply two numbers\n")
-            print(" 4. Divide two numbers\n")
-            print(" 5. Exit\n\n")
-            print(" Select: \n\n")
-        }
-
-        //print sub menu
-        void printSubMenu(string operation){
-            system("cls");
-            print("\n  --------- BASIC CALCULATOR ---------  \n");
-            print(operation);
         }
 
         //menu
