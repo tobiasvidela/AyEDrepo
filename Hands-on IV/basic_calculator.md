@@ -2,251 +2,135 @@
 ### Task:
 Rewrite your calculator using the power of procedures and functions to improve readability.
 - - -
-    ALGORITHM calculator {
-        //variables
+    ALGORITHM basicCalculator2 {
+
+        //Variables
+
         int sel; //selector
         float op1; //operand 1
         float op2; //operand 2
-        float r; //result
+        float result = 0; //result
+        bool repeat = true; //for repeating a task
 
-        //procedures and functions
+        //Procedures
 
-        //print menu
-        void printMenu(){
-            system("cls");
-            print("\n  --------- BASIC CALCULATOR ---------  \n");
-            print(" 1. Add two numbers\n");
-            print(" 2. Subtract two numbers\n");
-            print(" 3. Multiply two numbers\n");
-            print(" 4. Divide two numbers\n");
-            print(" 5. Exit\n\n");
-            print(" Select: \n\n");
+
+        void printTitle(){ //Print Title
+            system("cls"); //cleans the console
+            print("\n ------------- CALCULATOR v2.0 -------------\n"); //Title
         }
 
-        //print sub menu
-        void printSubMenu(string operation){
-            system("cls");
-            print("\n  --------- BASIC CALCULATOR ---------  \n");
-            print(operation);
+        void printMenu(){ //Print Main Menu
+            printTitle();
+            print(" - 0. Exit                                 -\n"); //exit program
+            print(" - 1. Add two numbers                      -\n"); //addition Sub Menu
+            print(" - 2. Subtract two numbers                 -\n"); //subtraction Sub Menu
+            print(" - 3. Multiply two numbers                 -\n"); //multiplication Sub Menu
+            print(" - 4. Divide two numbers                   -\n"); //division Sub Menu
+            print(" -------------------------------------------\n");
+            print("\n Select: "); //Select a Sub Menu
         }
 
-        //add
-        float add(float num1, float num2){
-            return num1 + num2;
+        void printSubMenu(char * selected){ //Print Sub Menu
+            printTitle();
+            print(selected); //print selected Sub Menu
         }
 
-        //subtract
-        float subtract(float num1, float num2){
-            return num1 - num2;
+        void askOperand(float op){ //Scan Operand
+            print(" Enter a number: ");
+            scan(op);
+            print("\n");
         }
 
-        //multiply
-        float multiply(float num1, float num2){
-            return num1 * num2;
+        void askToRepeat(){ //Ask To Repeat
+            print("\n Type 1 to continue operating. \n"); //repeat
+            print("\n Type 0 to exit this sub menu. \n"); //exit
+            print("\n Repeat? (1-0) = "); //select
+            scan(repeat);
         }
 
-        //divide
-        float divide(float num1, float num2){
-            while (num2 == 0){
-                scan(num2);
-            }
-            return num1 / num2;
-        }
 
-        //select sub menu
-        string selectSubMenu(int menu){
-            switch(menu) {
+        //Functions
+
+
+        string selectSubMenu(int sel){ //Select Sub Menu
+            switch(sel){ //select strings depending on 'sel' value
+                case 0:
+                    return "\n\n";
+                    break;
                 case 1:
-                    return "\n  ------------- Addition -------------  \n\n";
+                    return " ----------------- Addition ----------------\n";
                     break;
                 case 2:
-                    return "\n  ----------- Subtraction ------------  \n\n";
+                    return " --------------- Subtraction ---------------\n";
                     break;
                 case 3:
-                    return "\n  ---------- Multiplication ----------  \n\n";
+                    return " -------------- Multiplication -------------\n";
                     break;
                 case 4:
-                    return "\n  ------------- Division -------------  \n\n";
+                    return " ----------------- Division ----------------\n";
                     break;
-                case 5:
-                    return "Exiting...";
-                    break;
-                default:
-                    return "Incorrect selection. Please enter a correct integer number (1-5).";
+                default: //just in case
+                    return "\n\n Error when selecting Sub Menu.\n\n";
                     break;
             }
         }
 
-        //ask for operand
-        void askOperand(float number){
-            print("Enter a number: \n");
-            scan(number);
-        }
-
-        //operate
-        float calculate(int selector){
-            switch(selector) {
+        float calculate(int sel,float op1,float op2){ //Calculate
+            switch(sel){ //operate depending on 'sel' value
                 case 1:
-                    askOperand(op1);
-                    askOperand(op2);
-                    return add(op1,op2);
+                    return op1 + op2;
                     break;
                 case 2:
-                    askOperand(op1);
-                    askOperand(op2);
-                    return subtract(op1,op2);
+                    return op1 - op2;
                     break;
                 case 3:
-                    askOperand(op1);
-                    askOperand(op2);
-                    return multiply(op1,op2);
+                    return op1 * op2;
                     break;
                 case 4:
-                    askOperand(op1);
-                    askOperand(op2);
-                    return divide(op1,op2);
-                    break;
-                default:
-                    return 0;
+                    while (op2 == 0) {
+                        askOperand(op2);
+                    }
+                    return op1 / op2;
                     break;
             }
         }
 
-        //print result
-        void printResult(float result){
-            print("The result is: " + result + " \n\n");
-        }
 
-        //menu
-        do {
-            printMenu();
-            scan(sel);
-            //sub menus
-            printSubMenu(selectSubMenu(sel));
-            printResult(calculate(sel));
-            system("pause");
-        } while (sel != 5);
-    }
-    //try 2
-    void printMenu(){
-        system("cls");
-        print(" ------- BASIC CALCULATOR ------- \n\n");
-        print("  1. Add two numbers.\n");
-        print("  2. Subtract two numbers.\n");
-        print("  3. Multiply two numbers.\n");
-        print("  4. Divide two numbers.\n");
-        print("  5. Exit.\n\n");
-        print(" Select: ");
-    }
+        //Calculator - Main Program
 
-    void printSubMenu(int selected){
-        system("cls");
-        print(" ------- BASIC CALCULATOR ------- \n\n");
-        switch(selected){
-            case 1:
-                print("----------- Addition ----------- \n\n");
-                break;
-            case 2:
-                print("---------- Subtraction --------- \n\n");
-                break;
-            case 3:
-                print("-------- Multiplication -------- \n\n");
-                break;
-            case 4:
-                print("----------- Division ----------- \n\n");
-                break;
-        }
-    }
 
-    void openSubMenu(int selection){
-        switch(selection){
-            case 1:
-                printSubMenu(selection);
-                break;
-            case 2:
-                printSubMenu(selection);
-                break;
-            case 3:
-                printSubMenu(selection);
-                break;
-            case 4:
-                printSubMenu(selection);
-                break;
-            case 5:
-                break;
-            default:
-                system("cls");
-                print("Please, enter a correct number: 1, 2, 3, 4 or 5.");
-                system("pause");
-                break;
-        }
-    }
+        int main(){
 
-    ALGORITHM calculator {
-        //variables
-        int sel; //selector
-        float op1; //operand 1
-        float op2; //operand 2
-        float r; //result
+            //Menu
 
-        //menu
-        do {
-            printMenu();
-            scan(sel);
-            openSubMenu(sel);
-            askOperand(op1);
-            askOperand(op2);
-            calculate(op1,op2);
-            print(r);
-            switch(sel){
-                case 1:
-                    print(" Enter the first value: ");
-                    scan(op1);
-                    print("\n Enter the last value: ");
-                    scan(op2);
-                    r = op1 + op2;
-                    print("\n The result is: " + r + "\n\n");
-                    print("-------------------------------- \n\n\n");
-                    system("pause");
-                    break;
-                case 2:
-                    print(" Enter the first value: ");
-                    scan(op1);
-                    print("\n Enter the last value: ");
-                    scan(op2);
-                    r = op1 - op2;
-                    print("\n The result is: " + r + "\n\n");
-                    print("-------------------------------- \n\n\n");
-                    system("pause");
-                    break;
-                case 3:
-                    print(" Enter the first value: ");
-                    scan(op1);
-                    print("\n Enter the last value: ");
-                    scan(op2);
-                    r = op1 * op2;
-                    print("\n The result is: " + r + "\n\n");
-                    print("-------------------------------- \n\n\n");
-                    system("pause");
-                    break;
-                case 4:
-                    print(" Enter the first value: ");
-                    scan(op1);
-                    do {
-                        print("\n Enter the last value (Not Zero): ");
-                        scan(op2);
-                    } while (op2 == 0);
-                    r = op1 / op2;
-                    print("\n The result is: " + r + "\n\n");
-                    print("-------------------------------- \n\n\n");
-                    system("pause");
-                    break;
+            while (sel != 0) {
+                printMenu();
+                scan(sel);
+                repeat = true;
+
+                while (repeat  (sel > 0)  (sel < 5)){ //Sub Menu
+                    //print selected Sub Menu
+                    printSubMenu(selectSubMenu(sel));
+                    //scan operands
+                    askOperand(op1);
+                    askOperand(op2);
+                    //calculate
+                    result = calculate(sel,op1,op2);
+                    //print result
+                    print("\n Result = " + result + "\n");
+                    askToRepeat();
+                }
+
             }
-        } while (sel != 5);
 
-        print("\n Exiting... \n");
+            print("\n Exiting... \n\n");
 
-    }
+            return 0;
+        }
+
+
+    } //end program
 - - -
 ___Videla Guliotti, Tobías Uriel___ | ___DNI___ _44.246.096_ | ___05/04/23___
 - - -

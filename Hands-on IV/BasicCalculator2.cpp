@@ -1,120 +1,104 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include<string.h>
+#include<stdbool.h>
 
-//variables
+//Variables
 int sel; //selector
 float op1; //operand 1
 float op2; //operand 2
-float r; //result
-//procedures and functions
-//add
-float add(float num1, float num2){
-    return num1 + num2;
+float result = 0; //result
+bool repeat = true; //repeating a task
+//Procedures
+void printTitle(){ //Print Title
+    system("cls");
+    printf("\n ------------- CALCULATOR v2.0 -------------\n");
 }
-//subtract
-float subtract(float num1, float num2){
-    return num1 - num2;
+void printMenu(){ //Print Main Menu
+    printTitle();
+    printf(" - 0. Exit                                 -\n");
+    printf(" - 1. Add two numbers                      -\n");
+    printf(" - 2. Subtract two numbers                 -\n");
+    printf(" - 3. Multiply two numbers                 -\n");
+    printf(" - 4. Divide two numbers                   -\n");
+    printf(" -------------------------------------------\n");
+    printf("\n Select: ");
 }
-//multiply
-float multiply(float num1, float num2){
-    return num1 * num2;
+void printSubMenu(char * selected){ //Print Sub Menu
+    printTitle();
+    printf(selected);
 }
-//divide
-float divide(float num1, float num2){
-    while (num2 == 0){
-        scanf("%f", num2);
-    }
-    return num1 / num2;
+void askOperand(float &op){
+    printf(" Enter a number: ");
+    scanf("%f",&op);
+    printf("\n");
 }
-//select sub menu
-char* selectSubMenu(int menu){
-    switch(menu) {
+void askToRepeat(){
+    printf("\n Type 1 to continue operating. \n");
+    printf("\n Type 0 to exit this sub menu. \n");
+    printf("\n Repeat? (1-0) = ");
+    scanf("%d",&repeat);
+}
+//Functions
+char * selectSubMenu(int sel){ //Select Sub Menu
+    switch(sel){
+        case 0:
+            return "\n\n";
+            break;
         case 1:
-            return "\n  ------------- Addition -------------  \n\n";
+            return " ----------------- Addition ----------------\n";
             break;
         case 2:
-            return "\n  ----------- Subtraction ------------  \n\n";
+            return " --------------- Subtraction ---------------\n";
             break;
         case 3:
-            return "\n  ---------- Multiplication ----------  \n\n";
+            return " -------------- Multiplication -------------\n";
             break;
         case 4:
-            return "\n  ------------- Division -------------  \n\n";
-            break;
-        case 5:
-            return "Exiting...";
+            return " ----------------- Division ----------------\n";
             break;
         default:
-            return "Incorrect selection. Please enter a correct integer number (1-5).";
+            return "\n\n Error when selecting Sub Menu.\n\n";
             break;
     }
 }
-//ask for operand
-void askOperand(float number){ //PREGUNTAR AL PROFE SI ESTO ME ESTÁ ROMPIENDO EL PROGRAMA
-    printf("Enter a number: \n");
-    scanf("%f",number);
-}
-//operate
-float calculate(int selector){
-    switch(selector) {
+float calculate(int sel,float op1,float op2){
+    switch(sel){
         case 1:
-            askOperand(op1);
-            askOperand(op2);
-            return add(op1,op2);
+            return op1 + op2;
             break;
         case 2:
-            askOperand(op1);
-            askOperand(op2);
-            return subtract(op1,op2);
+            return op1 - op2;
             break;
         case 3:
-            askOperand(op1);
-            askOperand(op2);
-            return multiply(op1,op2);
+            return op1 * op2;
             break;
         case 4:
-            askOperand(op1);
-            askOperand(op2);
-            return divide(op1,op2);
-            break;
-        default:
-            return 0;
+            while (op2 == 0) {
+                askOperand(op2);
+            }
+            return op1 / op2;
             break;
     }
 }
-//calculate
-void printResult(float result){
-    printf("The result is: %.2f \n\n",result);
-}
-//print menu
-void printMenu(){
-    system("cls");
-    printf("\n  --------- BASIC CALCULATOR ---------  \n");
-    printf(" 1. Add two numbers\n");
-    printf(" 2. Subtract two numbers\n");
-    printf(" 3. Multiply two numbers\n");
-    printf(" 4. Divide two numbers\n");
-    printf(" 5. Exit\n\n");
-    printf(" Select: \n\n");
-}
-//print sub menu
-void printSubMenu(char * operation){
-    system("cls");
-    printf("\n  --------- BASIC CALCULATOR ---------  \n");
-    printf(operation);
-}
-
+//Calculator - Main Program
 int main(){
-    //menu
+
+    //Menu
     do {
         printMenu();
-        scanf("%d",&sel);
-        //sub menus
-        printSubMenu(selectSubMenu(sel));
-        printResult(calculate(sel));
-        system("pause");
-    } while (sel != 5);
+        scanf("%d", &sel);
+        repeat = true;
+        while (repeat && (sel > 0) && (sel < 5)){ //sub menu
+            printSubMenu(selectSubMenu(sel));
+            askOperand(op1);
+            askOperand(op2);
+            result = calculate(sel,op1,op2);
+            printf("\n Result = %.2f \n",result);
+            askToRepeat();
+        }
+    } while (sel != 0);
+
+    printf("\n Exiting... \n\n");
 
     return 0;
 }
