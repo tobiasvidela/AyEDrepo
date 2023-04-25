@@ -21,7 +21,7 @@ Use the previous algorithm to create three new algorithms that can solve the oth
         scan(num1);
         print("Enter a second number: ");
         scan(num2);
-        sum = num1 - num2;
+        substraction = num1 - num2;
         print(num1 + " - " + num2 + " = " + subtraction + ".");
     END
 
@@ -31,7 +31,7 @@ Use the previous algorithm to create three new algorithms that can solve the oth
         scan(num1);
         print("Enter a second number: ");
         scan(num2);
-        sum = num1 * num2;
+        multiplication = num1 * num2;
         print(num1 + " * " + num2 + " = " + multiplication + ".");
     END
 
@@ -42,7 +42,7 @@ Use the previous algorithm to create three new algorithms that can solve the oth
         scan(num1);
         print("Enter a second number: ");
         scan(num2);
-        sum = num1 / num2; // num2 != 0
+        division = num1 / num2; // num2 != 0
         print(num1 + " / " + num2 + " = " + division + ".");
     END
 - - -
@@ -76,7 +76,7 @@ Modify the previous algorithm to allow the values of the variables to be entered
         temp = A;
         A = B;
         B = temp;
-        print(Now A = " + A + "\nB = " + B);
+        print("Now A = " + A + "\nB = " + B);
     END
 - - -
 ___Videla Guliotti, Tobías Uriel___ | ___DNI___ _44.246.096_ | ___01/04/23___
