@@ -69,9 +69,9 @@ Modify the previous algorithm to allow the values of the variables to be entered
     ALGORITHM swapValues
         int A, B, temp;
         print("Enter a value for A: ");
-        scan(a);
+        scan(A);
         print("Enter a value for B: ");
-        scan(b);
+        scan(B);
         print("A = " + A + "\nB = " + B + "\n...Swapping...\n");
         temp = A;
         A = B;
