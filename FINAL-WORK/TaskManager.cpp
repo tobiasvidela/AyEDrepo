@@ -79,7 +79,43 @@ void printAddMenu(){
     printf("\n(Type 0 to go back.)"); //temporary
     printf("\n");
 }
-
+void printDetailsMenu(int selectedTask){
+    //selectedTask-1 is the actual position of the selected task
+    system("cls");
+    printTitle();
+    printf("\n Details Menu of \"%s\":\n\n",Tasks[selectedTask-1].title);
+    printf("\t %s \n\n",Tasks[selectedTask-1].title);
+    printf("\t %s \n\n",Tasks[selectedTask-1].description);
+    switch(Tasks[selectedTask-1].state){
+        case 1:
+            printf("\t State:               Pending \n\n");
+            break;
+        case 2:
+            printf("\t State:               In Progress \n\n");
+            break;
+        case 3:
+            printf("\t State:               Finished \n\n");
+            break;
+    }
+    switch(Tasks[selectedTask-1].difficulty){
+        case 1:
+            printf("\t Difficulty:          Easy \n\n");
+            break;
+        case 2:
+            printf("\t Difficulty:          Medium \n\n");
+            break;
+        case 3:
+            printf("\t Difficulty:          Hard \n\n");
+            break;
+    }
+    /*
+    printf("\t Creation Date:       %s \n\n",Tasks[selectedTask-1].creation);
+    printf("\t Expiration Date:     %s \n\n",Tasks[selectedTask-1].expiration);
+    printf("\t Last Edit Date:      %s \n\n",Tasks[selectedTask-1].lastEdit);
+    */
+    printf("\n");
+    printf("\n Type 0 to go back, or 1 to edit.\n");
+}
 
 void printAllTasks(){
     system("cls");
