@@ -26,11 +26,16 @@ struct Task {
 
 //global variables
 struct Task Tasks[mil]; //all tasks
-int lastAdded = 0; //last task added
+int lastAdded = 0; //(last position of array used) + 1
 
 //Menus
 void printTitle(){
     printf("\t\t\t TASK MANAGER v1 \n");
+}
+void printBackOrDetails(){
+    printf("\n What do you want to do next?");
+    printf("\n\t [0] Go back.");
+    printf("\n\t [...] Select the number of any listed task to go to the Details Menu.\n");
 }
 void printMainMenu(){
     system("cls");
@@ -58,10 +63,7 @@ void printSeeMenu(){
 void printSearchMenu(){
     system("cls");
     printTitle();
-    printf("\n Fine! Type anything to look for... Or 0 (zero) to go back.\n");
-    printf("\n");
-    //Read and print the matching tasks :D and so on
-    printf("\n");
+    printf("\n Fine! Type a word or phrase to look for: ");
 }
 void printAddMenu(){
     system("cls");
@@ -74,9 +76,11 @@ void printAddMenu(){
      *  Difficulty
      *  Expiration Date
      */
-    printf("\n(Type 0 to go back.)");
+    printf("\n(Type 0 to go back.)"); //temporary
     printf("\n");
 }
+
+
 void printAllTasks(){
     system("cls");
     printTitle();
@@ -85,7 +89,7 @@ void printAllTasks(){
         printf("\n\t [%d] %s\n",i+1,Tasks[i].title);
     }
     printf("\n");
-    printf("\n(Type 0 to go back.)");
+    printBackOrDetails();
     printf("\n");
 }
 void printPendingTasks(){
@@ -98,7 +102,7 @@ void printPendingTasks(){
         }
     }
     printf("\n");
-    printf("\n(Type 0 to go back.)");
+    printBackOrDetails();
     printf("\n");
 }
 void printInProgressTasks(){
@@ -111,7 +115,7 @@ void printInProgressTasks(){
         }
     }
     printf("\n");
-    printf("\n(Type 0 to go back.)");
+    printBackOrDetails();
     printf("\n");
 }
 void printFinishedTasks(){
@@ -124,14 +128,24 @@ void printFinishedTasks(){
         }
     }
     printf("\n");
-    printf("\n(Type 0 to go back.)");
+    printBackOrDetails();
     printf("\n");
+}
+void printMatches(char *key){
+    printf("\nThese are the matches:\n");
+    for(int i = 0; i < lastAdded; i++){
+        if (strstr(Tasks[i].title,key) != NULL) {
+            printf("\n\t [%d] %s\n",i+1,Tasks[i].title);
+        }
+        if (strstr(Tasks[i].description,key) != NULL) {
+            printf("\n\t [%d] %s\n",i+1,Tasks[i].title);
+        }
+    }
 }
 
 
 //Functions
 void listTasks(int sel){
-    //ALL TASKS WILL BE LISTED WITH A NUMBER ABOVE THEIR ACTUAL POSITION IN THE TASK ARRAY
     switch (sel) {
         case 1: //All Tasks
             int sel;
@@ -160,6 +174,32 @@ void listTasks(int sel){
             break;
     }
 }
+void searchTask(){
+    int found = 0;
+    char key[500];
+
+    //get string to search for
+    fflush(stdin);
+    gets(key);
+
+    //searching work
+    for(int i = 0; i < lastAdded; i++){
+        if (strstr(Tasks[i].title,key) != NULL) {
+            found = 1;
+        }
+        if (strstr(Tasks[i].description,key) != NULL) {
+            found = 1;
+        }
+    }
+    //printing results
+    if (found == 1) {
+        printMatches(key);
+        printBackOrDetails();
+    } else {
+        printf("\n It seems that there are no matches.");
+        printf("\n Type 0 (zero) to go back.\n");
+    }
+}
 void selectMenus(int sel){
     switch (sel) {
         case 1: //See
@@ -173,8 +213,8 @@ void selectMenus(int sel){
         case 2: //Search
             do{
                 printSearchMenu();
+                searchTask();
                 scanf("%d",&sel);
-                //Search tasks
             } while (sel != 0);
             break;
         case 3: //Add
