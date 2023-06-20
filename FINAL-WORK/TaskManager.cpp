@@ -3,6 +3,14 @@
 #include <string.h>
 #define mil 1000
 
+/*          NOTES
+ *
+ *  ALL TASKS WILL BE LISTED WITH A NUMBER ABOVE THEIR ACTUAL POSITION IN THE TASK ARRAY
+ *
+ *
+ */
+
+
 //structs
 struct Task {
     char title[100];
@@ -69,8 +77,89 @@ void printAddMenu(){
     printf("\n(Type 0 to go back.)");
     printf("\n");
 }
+void printAllTasks(){
+    system("cls");
+    printTitle();
+    printf("\n These are all your tasks:\n");
+    for(int i = 0; i < lastAdded; i++){ //list all added tasks, starting from 1
+        printf("\n\t [%d] %s\n",i+1,Tasks[i].title);
+    }
+    printf("\n");
+    printf("\n(Type 0 to go back.)");
+    printf("\n");
+}
+void printPendingTasks(){
+    system("cls");
+    printTitle();
+    printf("\n These are your pending tasks:\n");
+    for(int i = 0; i < lastAdded; i++){ //list all pending tasks
+        if (Tasks[i].state == 1){
+            printf("\n\t [%d] %s\n",i+1,Tasks[i].title);
+        }
+    }
+    printf("\n");
+    printf("\n(Type 0 to go back.)");
+    printf("\n");
+}
+void printInProgressTasks(){
+    system("cls");
+    printTitle();
+    printf("\n These are your tasks in progress:\n");
+    for(int i = 0; i < lastAdded; i++){ //list all tasks in progress
+        if (Tasks[i].state == 2){
+            printf("\n\t [%d] %s\n",i+1,Tasks[i].title);
+        }
+    }
+    printf("\n");
+    printf("\n(Type 0 to go back.)");
+    printf("\n");
+}
+void printFinishedTasks(){
+    system("cls");
+    printTitle();
+    printf("\n These are your finished tasks:\n");
+    for(int i = 0; i < lastAdded; i++){ //list all finished tasks
+        if (Tasks[i].state == 3){
+            printf("\n\t [%d] %s\n",i+1,Tasks[i].title);
+        }
+    }
+    printf("\n");
+    printf("\n(Type 0 to go back.)");
+    printf("\n");
+}
+
 
 //Functions
+void listTasks(int sel){
+    //ALL TASKS WILL BE LISTED WITH A NUMBER ABOVE THEIR ACTUAL POSITION IN THE TASK ARRAY
+    switch (sel) {
+        case 1: //All Tasks
+            int sel;
+            do{
+                printAllTasks();
+                scanf("%d",&sel);
+            } while (sel != 0);
+            break;
+        case 2: //Pending Tasks
+            do{
+                printPendingTasks();
+                scanf("%d",&sel);
+            } while (sel != 0);
+            break;
+        case 3: //Tasks In Progress
+            do{
+                printInProgressTasks();
+                scanf("%d",&sel);
+            } while (sel != 0);
+            break;
+        case 4: //Finished Tasks
+            do{
+                printFinishedTasks();
+                scanf("%d",&sel);
+            } while (sel != 0);
+            break;
+    }
+}
 void selectMenus(int sel){
     switch (sel) {
         case 1: //See
@@ -78,7 +167,7 @@ void selectMenus(int sel){
             do{
                 printSeeMenu();
                 scanf("%d",&sel);
-                //SubMenu
+                listTasks(sel);
             } while (sel != 0);
             break;
         case 2: //Search
@@ -117,15 +206,12 @@ int main () {
     int sel;
     addTask();
 
-    //App
+    //Execute App
     do{
+
         printMainMenu();
         scanf("%d",&sel);
-
-        //Enter to subMenus
         selectMenus(sel);
-
-
 
     } while (sel != 0);
 
