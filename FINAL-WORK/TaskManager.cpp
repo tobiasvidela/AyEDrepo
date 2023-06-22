@@ -7,7 +7,6 @@
  *
  *  ALL TASKS WILL BE LISTED WITH A NUMBER ABOVE THEIR ACTUAL POSITION IN THE TASK ARRAY
  *  TO DO:
- *      -Add Date
  *      -Validate every input
  *
  */
@@ -45,10 +44,10 @@ void printBackOrDetails(){
 void printMainMenu(){
     system("cls");
     printTitle();
-    printf("\n Welcome User! What do you want to do? \n");
+    printf("\n Welcome User!\n What do you want to do? \n");
     printf("\n");
     printf("\t[1] See my tasks.\n");
-    printf("\t[2] Search a task.\n");
+    printf("\t[2] Search for a task.\n");
     printf("\t[3] Add a task.\n");
     printf("\t[0] Exit.\n");
     printf("\n");
@@ -97,6 +96,9 @@ void printDetailsMenu(int selectedTask){
         case 3:
             printf("\t State:               Finished \n");
             break;
+        case 4:
+            printf("\t State:               Canceled \n");
+            break;
     }
     switch(Tasks[selectedTask-1].difficulty){
         case 1:
@@ -112,7 +114,6 @@ void printDetailsMenu(int selectedTask){
     /*
     printf("\t Creation Date:       %s \n",Tasks[selectedTask-1].creation);
     printf("\t Expiration Date:     %s \n",Tasks[selectedTask-1].expiration);
-    printf("\t Last Edit Date:      %s \n",Tasks[selectedTask-1].lastEdit);
     */
     printf("\n");
     printf("\n Type 0 to go back, or 1 to edit.\n");
@@ -182,11 +183,8 @@ void printFinishedTasks(){
 
 void printMatches(char *key){
     printf("\nThese are the matches:\n");
-    for(int i = 0; i < lastAdded; i++){
-        if (strstr(Tasks[i].title,key) != NULL) {
-            printf("\n\t [%d] %s\n",i+1,Tasks[i].title);
-        }
-        if (strstr(Tasks[i].description,key) != NULL) {
+    for(int i = 0; i < lastAdded; i++){ //list all matching task
+        if (strstr(Tasks[i].title,key) != NULL || strstr(Tasks[i].description,key) != NULL) {
             printf("\n\t [%d] %s\n",i+1,Tasks[i].title);
         }
     }
@@ -198,13 +196,13 @@ void printMatches(char *key){
 
 void addTask(){
     fflush(stdin);
-    printf("\n\t Title:");
+    printf("\n\t Title (Max. 100 characters) : ");
     gets(Tasks[lastAdded].title);
-    printf("\n\t Description:");
+    printf("\n\t Description (Max. 500 characters) : ");
     gets(Tasks[lastAdded].description);
-    printf("\n\t Difficulty:");
+    printf("\n\t Difficulty (1 - 2 - 3) : ");
     scanf("%d",&Tasks[lastAdded].difficulty);
-    printf("\n\t State:");
+    printf("\n\t State ([1]Pending - [2]In Progress - [3]Finished - [4]Canceled) : ");
     scanf("%d",&Tasks[lastAdded].state);
 
     lastAdded++;
@@ -236,7 +234,7 @@ void editTask(int selectedTask){
     do {
         scanf("%d",&newDifficulty);
         if (newDifficulty != 0) {
-            if (newDifficulty < 3 && newDifficulty > 0) {
+            if (newDifficulty < 4 && newDifficulty > 0) {
                 Tasks[selectedTask-1].difficulty = newDifficulty;
             }
         }
@@ -349,10 +347,7 @@ void searchTask(){
 
     //searching work
     for(int i = 0; i < lastAdded; i++){
-        if (strstr(Tasks[i].title,key) != NULL) {
-            found = 1;
-        }
-        if (strstr(Tasks[i].description,key) != NULL) {
+        if (strstr(Tasks[i].title,key) != NULL || strstr(Tasks[i].description,key) != NULL) {
             found = 1;
         }
     }
@@ -381,7 +376,18 @@ void selectMenus(int sel){
                 printSearchMenu();
                 searchTask();
                 scanf("%d",&sel);
-                //if sel!= 0 => editmenu
+                if (sel != 0){
+                    do {
+                        int selectedTask = sel;
+                        printDetailsMenu(sel);
+                        scanf("%d",&sel);
+                        if (sel == 1) {
+                            printEditMenu(selectedTask);
+                            editTask(selectedTask);
+                            scanf("%d",&sel);
+                        }
+                    } while (sel != 0);
+                }
             } while (sel != 0);
             break;
         case 3: //Add
@@ -389,7 +395,7 @@ void selectMenus(int sel){
                 printAddMenu();
                 addTask();
                 printf("\n");
-                printf("\nTask Saved, press any key to continue...");
+                printf("\nTask Saved\n");
                 system("pause");
                 sel = 0;
             } while (sel != 0);
@@ -403,6 +409,7 @@ int main () {
 
     //variables
     int sel;
+
 
     //Execute App
     do{
