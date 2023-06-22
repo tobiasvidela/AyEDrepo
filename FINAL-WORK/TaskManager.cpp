@@ -5,7 +5,7 @@
 
 /*          NOTES
  *
- *  ALL TASKS WILL BE LISTED WITH A NUMBER ABOVE THEIR ACTUAL POSITION IN THE TASK ARRAY
+ *  ALL TASKS WILL BE LISTED WITH A NUMBER ABOVE THEIR ACTUAL POSITION IN THE TASKS ARRAY
  *  TO DO:
  *      -Validate every input
  *
@@ -18,11 +18,6 @@ struct Task {
     char description[500];
     int difficulty; //Easy-Medium-Hard||1-2-3
     int state; //Pending-In progress-Finished-Canceled||1-2-3-4
-    /*      DATES
-     *  char creation[30];
-     *  char expiration[30];
-     *  char lastEdit[30];
-    */
 };
 
 //global variables
@@ -111,10 +106,6 @@ void printDetailsMenu(int selectedTask){
             printf("\t Difficulty:          Hard \n");
             break;
     }
-    /*
-    printf("\t Creation Date:       %s \n",Tasks[selectedTask-1].creation);
-    printf("\t Expiration Date:     %s \n",Tasks[selectedTask-1].expiration);
-    */
     printf("\n");
     printf("\n Type 0 to go back, or 1 to edit.\n");
 }
