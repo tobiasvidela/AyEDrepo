@@ -6,7 +6,9 @@
 /*          NOTES
  *
  *  ALL TASKS WILL BE LISTED WITH A NUMBER ABOVE THEIR ACTUAL POSITION IN THE TASK ARRAY
- *
+ *  TO DO:
+ *      -Add Date
+ *      -Validate every input
  *
  */
 
@@ -76,14 +78,6 @@ void printAddMenu(){
     printTitle();
     printf("\n Good! There you go:\n");
     printf("\n");
-    /*          Create a New Task
-     *  Title
-     *  Description
-     *  Difficulty
-     *  Expiration Date
-     */
-    printf("\n(Type 0 to go back.)"); //temporary
-    printf("\n");
 }
 
 void printDetailsMenu(int selectedTask){
@@ -101,7 +95,7 @@ void printDetailsMenu(int selectedTask){
             printf("\t State:               In Progress \n");
             break;
         case 3:
-            printf("\t State:               Finished \u263A \n");
+            printf("\t State:               Finished \n");
             break;
     }
     switch(Tasks[selectedTask-1].difficulty){
@@ -200,6 +194,21 @@ void printMatches(char *key){
 
 
 //Functions
+
+
+void addTask(){
+    fflush(stdin);
+    printf("\n\t Title:");
+    gets(Tasks[lastAdded].title);
+    printf("\n\t Description:");
+    gets(Tasks[lastAdded].description);
+    printf("\n\t Difficulty:");
+    scanf("%d",&Tasks[lastAdded].difficulty);
+    printf("\n\t State:");
+    scanf("%d",&Tasks[lastAdded].state);
+
+    lastAdded++;
+}
 
 void editTask(int selectedTask){
     char newTitle[100];
@@ -378,33 +387,22 @@ void selectMenus(int sel){
         case 3: //Add
             do {
                 printAddMenu();
-                //addTask()
-                scanf("%d",&sel); //temporary
+                addTask();
+                printf("\n");
+                printf("\nTask Saved, press any key to continue...");
+                system("pause");
+                sel = 0;
             } while (sel != 0);
             break;
     }
 }
 
-void addTask(){
-    fflush(stdin);
-    printf("\n\t Title:");
-    gets(Tasks[lastAdded].title);
-    printf("\n\t Description:");
-    gets(Tasks[lastAdded].description);
-    printf("\n\t Difficulty:");
-    scanf("%d",&Tasks[lastAdded].difficulty);
-    printf("\n\t State:");
-    scanf("%d",&Tasks[lastAdded].state);
 
-    lastAdded++;
-}
 
 int main () {
 
     //variables
     int sel;
-    addTask();
-    addTask();
 
     //Execute App
     do{
