@@ -1,22 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #define mil 1000
 
-/*          NOTES
+/*          NOTAS DESARROLLADOR
  *
- *  ALL TASKS WILL BE LISTED WITH A NUMBER ABOVE THEIR ACTUAL POSITION IN THE TASKS ARRAY
- *  TO DO:
+ *  TODAS LAS TAREAS SE MUESTRAN CON UN NÚMERO SUPERIOR A SU POSICIÓN REAL
+ *  EN EL ARREGLO DE TAREAS.
+ *
  *
  */
 
 
-//struct
+//  Struct
 struct Task {
     char title[100];
     char description[500];
-    int difficulty; //Easy-Medium-Hard||1-2-3
-    int state; //Pending-In progress-Finished-Canceled||1-2-3-4
+    int difficulty; //Easy-Medium-Hard || 1-2-3
+    int state; //Pending-In progress-Finished-Canceled || 1-2-3-4
 };
 
 //global variables
@@ -63,13 +65,15 @@ void printSeeMenu(){
 void printSearchMenu(){
     system("cls");
     printTitle();
-    printf("\n Fine! Type a word or phrase to look for: ");
+    printf("\n Fine! Type a word or a phrase to look for: ");
 }
 
 void printAddMenu(){
     system("cls");
     printTitle();
     printf("\n Good! There you go:\n");
+    printf("\t -Attributes with * are obligatory.\n");
+    printf("\t -Press \"Enter\" to leave an attribute blank.\n");
     printf("\n");
 }
 
@@ -115,59 +119,112 @@ void printEditMenu(int selectedTask){
     printTitle();
     printf("\n You are about to edit \"%s\".\n",Tasks[selectedTask-1].title);
     printf("\t -Write a 0 (zero) to not edit an attribute.\n");
+    printf("\t -Press \"Enter\" to leave an attribute blank.\n");
 }
 
 void printAllTasks(){
     system("cls");
     printTitle();
-    printf("\n These are all your tasks:\n");
-    for(int i = 0; i < lastAdded; i++){ //list all added tasks, starting from 1
-        printf("\n\t [%d] %s\n",i+1,Tasks[i].title);
+    if (lastAdded != 0) {
+        printf("\n These are all your tasks:\n");
+        for(int i = 0; i < lastAdded; i++){ //list all added tasks, starting from 1
+            printf("\n\t [%d] %s\n",i+1,Tasks[i].title);
+        }
+        printf("\n");
+        printBackOrDetails();
+    } else {
+        printf("\n There are no tasks.\n");
+        printf("\n Type 0 (zero) to go back.\n");
     }
-    printf("\n");
-    printBackOrDetails();
     printf("\n");
 }
 
 void printPendingTasks(){
-    system("cls");
-    printTitle();
-    printf("\n These are your pending tasks:\n");
-    for(int i = 0; i < lastAdded; i++){ //list all pending tasks
+    //validation
+
+    int control = 0;
+    for(int i = 0; i < lastAdded; i++){ //find a pending task
         if (Tasks[i].state == 1){
-            printf("\n\t [%d] %s\n",i+1,Tasks[i].title);
+            control = 1;
         }
     }
-    printf("\n");
-    printBackOrDetails();
+
+    //print
+
+    system("cls");
+    printTitle();
+    if (lastAdded != 0 && control != 0) {
+        printf("\n These are your pending tasks:\n");
+        for(int i = 0; i < lastAdded; i++){ //list all pending tasks
+            if (Tasks[i].state == 1){
+                printf("\n\t [%d] %s\n",i+1,Tasks[i].title);
+            }
+        }
+        printf("\n");
+        printBackOrDetails();
+    } else {
+        printf("\n There are no pending tasks.\n");
+        printf("\n Type 0 (zero) to go back.\n");
+    }
     printf("\n");
 }
 
 void printInProgressTasks(){
-    system("cls");
-    printTitle();
-    printf("\n These are your tasks in progress:\n");
-    for(int i = 0; i < lastAdded; i++){ //list all tasks in progress
+    //validation
+
+    int control = 0;
+    for(int i = 0; i < lastAdded; i++){ //find a task in progress
         if (Tasks[i].state == 2){
-            printf("\n\t [%d] %s\n",i+1,Tasks[i].title);
+            control = 1;
         }
     }
-    printf("\n");
-    printBackOrDetails();
+
+    //print
+    system("cls");
+    printTitle();
+
+    if (lastAdded != 0 && control != 0) {
+        printf("\n These are your tasks in progress:\n");
+        for(int i = 0; i < lastAdded; i++){ //list all tasks in progress
+            if (Tasks[i].state == 2){
+                printf("\n\t [%d] %s\n",i+1,Tasks[i].title);
+            }
+        }
+        printf("\n");
+        printBackOrDetails();
+    } else {
+        printf("\n There are no tasks in progress.\n");
+        printf("\n Type 0 (zero) to go back.\n");
+    }
     printf("\n");
 }
 
 void printFinishedTasks(){
-    system("cls");
-    printTitle();
-    printf("\n These are your finished tasks:\n");
-    for(int i = 0; i < lastAdded; i++){ //list all finished tasks
+    //validation
+
+    int control = 0;
+    for(int i = 0; i < lastAdded; i++){ //find a finished task
         if (Tasks[i].state == 3){
-            printf("\n\t [%d] %s\n",i+1,Tasks[i].title);
+            control = 1;
         }
     }
-    printf("\n");
-    printBackOrDetails();
+
+    //print
+    system("cls");
+    printTitle();
+    if (lastAdded != 0 && control != 0) {
+        printf("\n These are your finished tasks:\n");
+        for(int i = 0; i < lastAdded; i++){ //list all finished tasks
+            if (Tasks[i].state == 3){
+                printf("\n\t [%d] %s\n",i+1,Tasks[i].title);
+            }
+        }
+        printf("\n");
+        printBackOrDetails();
+    } else {
+        printf("\n There are no finished tasks.\n");
+        printf("\n Type 0 (zero) to go back.\n");
+    }
     printf("\n");
 }
 
@@ -181,30 +238,35 @@ void printMatches(char *key){
 }
 
 
-//Functions
+//"Functions"
 
 
 void addTask(){
     fflush(stdin);
     printf("\n\t Title (Max. 100 characters) : ");
     gets(Tasks[lastAdded].title);
+
+    fflush(stdin);
     printf("\n\t Description (Max. 500 characters) : ");
     gets(Tasks[lastAdded].description);
-    printf("\n\t Difficulty (1 - 2 - 3) : ");
+
+    printf("\n\t Difficulty* (1 - 2 - 3) : ");
     scanf("%d",&Tasks[lastAdded].difficulty);
-    printf("\n\t State ([1]Pending - [2]In Progress - [3]Finished - [4]Canceled) : ");
+
+    printf("\n\t State* ([1]Pending - [2]In Progress - [3]Finished - [4]Canceled) : ");
     scanf("%d",&Tasks[lastAdded].state);
 
     lastAdded++;
 }
 
 void editTask(int selectedTask){
+    //variables
     char newTitle[100];
     char newDescription[500];
     int newDifficulty;
     int newState;
-    //New Expiration Date
 
+    //procedure
     fflush(stdin);
     printf("\n\t New Title (Max. 100 characters) : ");
     gets(newTitle);
@@ -220,7 +282,7 @@ void editTask(int selectedTask){
     }
 
     fflush(stdin);
-    printf("\n\t New Difficulty (1 - 2 - 3) : ");
+    printf("\n\t New Difficulty* (1 - 2 - 3) : ");
     do {
         scanf("%d",&newDifficulty);
         if (newDifficulty != 0) {
@@ -231,7 +293,7 @@ void editTask(int selectedTask){
     } while (newDifficulty > 3 || newDifficulty < 0);
 
     fflush(stdin);
-    printf("\n\t New State ([1]Pending - [2]In Progress - [3]Finished - [4]Canceled) : ");
+    printf("\n\t New State*  ([1]Pending - [2]In Progress - [3]Finished - [4]Canceled) : ");
     do {
         scanf("%d",&newState);
         if (newState != 0) {
@@ -246,7 +308,7 @@ void editTask(int selectedTask){
     printf("\n");
     printf("\nChanges saved!");
     printf("\n");
-    printf("\t Type 0 (zero) to continue...");
+    system("pause");
 }
 
 void listTasks(int sel){
@@ -264,7 +326,7 @@ void listTasks(int sel){
                         if (sel == 1) {
                             printEditMenu(selectedTask);
                             editTask(selectedTask);
-                            scanf("%d",&sel);
+                            sel = 0;
                         }
                     } while (sel != 0);
                 }
@@ -282,7 +344,7 @@ void listTasks(int sel){
                         if (sel == 1) {
                             printEditMenu(selectedTask);
                             editTask(selectedTask);
-                            scanf("%d",&sel);
+                            sel = 0;
                         }
                     } while (sel != 0);
                 }
@@ -300,7 +362,7 @@ void listTasks(int sel){
                         if (sel == 1) {
                             printEditMenu(selectedTask);
                             editTask(selectedTask);
-                            scanf("%d",&sel);
+                            sel = 0;
                         }
                     } while (sel != 0);
                 }
@@ -318,7 +380,7 @@ void listTasks(int sel){
                         if (sel == 1) {
                             printEditMenu(selectedTask);
                             editTask(selectedTask);
-                            scanf("%d",&sel);
+                            sel = 0;
                         }
                     } while (sel != 0);
                 }
@@ -374,7 +436,7 @@ void selectMenus(int sel){
                         if (sel == 1) {
                             printEditMenu(selectedTask);
                             editTask(selectedTask);
-                            scanf("%d",&sel);
+                            sel = 0;
                         }
                     } while (sel != 0);
                 }
@@ -385,7 +447,7 @@ void selectMenus(int sel){
                 printAddMenu();
                 addTask();
                 printf("\n");
-                printf("\nTask Saved\n");
+                printf("\nTask Saved.\n\n");
                 system("pause");
                 sel = 0;
             } while (sel != 0);
@@ -401,7 +463,7 @@ int main () {
     int sel;
 
 
-    //Execute App
+    //Execute application
     do{
 
         printMainMenu();
