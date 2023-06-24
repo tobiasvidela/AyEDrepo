@@ -7,12 +7,11 @@
  *
  *  ALL TASKS WILL BE LISTED WITH A NUMBER ABOVE THEIR ACTUAL POSITION IN THE TASKS ARRAY
  *  TO DO:
- *      -Validate every input
  *
  */
 
 
-//structs
+//struct
 struct Task {
     char title[100];
     char description[500];
