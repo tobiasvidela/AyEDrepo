@@ -5,9 +5,10 @@
 
 /*
  *      NOTAS:
- *      TODAS LAS TAREAS SE MOSTRARAN CON UN NUMERO SUPERIOR A SU POSICION REAL EN EL ARREGLO
- *  --> [POSICION VERDADERA + 1] TITULO DE LA TAREA
- *
+ *          TODAS LAS TAREAS SE MOSTRARAN CON UN NUMERO SUPERIOR A SU POSICION REAL EN EL ARREGLO
+ *              --> [POSICION VERDADERA + 1] TITULO DE LA TAREA
+ *          TOTALTAREAS ALMACENA EL TOTAL DE LAS TAREAS AGREGADAS, POR ESO INICIA EN 0.
+ *          Y ADEMÁS GUARDA LA POSICIÓN SIGUIENTE A LA DE LA ÚLTIMA TAREA AGREGADA.
  *
  */
 
@@ -21,24 +22,11 @@ struct Tarea {
 };
 
 struct Tarea Tareas[mil];
-int ultimaTarea = 0; //guarda la primera posicion disponible en el arreglo despues de la ultima tarea agregada
+int totalTareas = 0; //guarda la primera posicion disponible en el arreglo despues de la ultima tarea agregada
 
 //                  FUNCIONES Y PROCEDIMIENTOS
 
 //  MENSAJES
-void imprimirOpcionIncorrecta(){ //mensaje
-    system("cls");
-    printf("Opcion incorrecta.\n");
-    system("pause");
-}
-
-void imprimirAtrasODetalles(){ //mensaje
-    printf("\n Que quieres hacer a continuacion?");
-    printf("\n\t [0] Volver.");
-    printf("\n\t [...] Seleccionar una tarea para ir a sus detalles.\n");
-}
-
-//  FUNCIONES
 void imprimirTitulo(){ //TITULO DEL TRABAJO Y AUTORES
     printf("\t\t\t TRABAJO FINAL | ChatGPT *on* \n");
     /*
@@ -51,6 +39,19 @@ void imprimirTitulo(){ //TITULO DEL TRABAJO Y AUTORES
      */
 }
 
+void imprimirOpcionIncorrecta(){ //mensaje
+    system("cls");
+    printf("Opcion incorrecta.\n\n");
+    system("pause");
+}
+
+void imprimirAtrasODetalles(){ //mensaje
+    printf("\n Que quieres hacer a continuacion?");
+    printf("\n\t [0] Volver.");
+    printf("\n\t [...] Seleccionar una tarea para ir a sus detalles.\n");
+}
+
+//  FUNCIONES
 void agregarTarea(){ //crea una tarea introduciendo sus atributos
     int dificultad;
     int estado;
@@ -60,17 +61,17 @@ void agregarTarea(){ //crea una tarea introduciendo sus atributos
 
     fflush(stdin);
     printf("\n\t Titulo (Max. 100 caracteres) : ");
-    gets(Tareas[ultimaTarea].titulo);
+    gets(Tareas[totalTareas].titulo);
 
     fflush(stdin);
     printf("\n\t Descripcion (Max. 500 caracteres) : ");
-    gets(Tareas[ultimaTarea].descripcion);
+    gets(Tareas[totalTareas].descripcion);
 
     printf("\n\t Dificultad (1 - 2 - 3) : ");
     do { //para que el usuario no ingrese un valor incorrecto
         scanf("%d",&dificultad);
         if (dificultad < 4 && dificultad > 0) {
-            Tareas[ultimaTarea].dificultad = dificultad;
+            Tareas[totalTareas].dificultad = dificultad;
         }
     } while (dificultad > 3 || dificultad < 1);
 
@@ -79,11 +80,11 @@ void agregarTarea(){ //crea una tarea introduciendo sus atributos
     do { //para que el usuario no ingrese un valor incorrecto
         scanf("%d",&estado);
         if (estado < 5 && estado > 0) {
-            Tareas[ultimaTarea].estado = estado;
+            Tareas[totalTareas].estado = estado;
         }
     } while (estado > 4 || estado < 1);
 
-    ultimaTarea++;
+    totalTareas++;
 }
 
 void editarTarea(int tareaSeleccionada){ //edita una tarea introduciendo sus atributos
@@ -156,7 +157,7 @@ void editarTarea(int tareaSeleccionada){ //edita una tarea introduciendo sus atr
     } while (nuevaDificultad > 6 || nuevaDificultad == 4 || nuevaDificultad < 0);
 
     printf("\n");
-    printf("\nCambios guardados!");
+    printf("\n Cambios guardados!");
     printf("\n");
     system("pause");
 
@@ -174,21 +175,28 @@ void buscarTarea(){ //busca una tarea introduciendo su titulo
     fflush(stdin);
     gets(titulo);
 
-    for(i = 0; i < ultimaTarea; i++){
+    for(i = 0; i < totalTareas; i++){
        if(strcmp(Tareas[i].titulo,titulo)==0){
             if (control < 1){ //para que imprima una sola vez y no las tareas parecidas
                 printf("\n Se ha encontrado una tarea : \n");
                 printf("\t [%d] %s \n",i+1,Tareas[i].titulo);
                 control = 1;
             }
-            if (ultimaTarea > 1 && control < 2){ //si existe más de una tarea y control para imprimir una sola vez el mensaje
+            //imprimir una sola vez el mensaje y solo si existe más de una tarea creada:
+            if (totalTareas > 1 && control < 2){
+                /*  PROBLEMA:
+                 *      SI HAY MÁS DE UNA TAREA CREADA, Y SE BUSCA UNA TAREA QUE NO TIENE PARECIDAS,
+                 *      SE IMPRIMIRÁ IGUALMENTE EL MENSAJE DE DEBAJO. SE DECIDIÓ (POR TIEMPO) DEJARLO
+                 *      ASÍ, PERO PODRÍA ESTABLECERSE UNA SEGUNDA VARIABLE DE CONTROL PARA SOLUCIONAR
+                 *      ESTE PROBLEMA.
+                 */
                 printf(" Estas son las tareas parecidas : \n ");
 
-                for(j = i + 1; j < ultimaTarea; j++){
+                for(j = i + 1; j < totalTareas; j++){
                     if(strcmp(Tareas[i].titulo,Tareas[j].titulo)==0){
                         printf("\t\t [%d] %s \n",j+1,Tareas[j].titulo);
                     }
-                    control = 2; //control para imprimir una sola vez el mensaje
+                    control = 2; //control para imprimir una sola vez el mensaje de tareas parecidas y no usar el break;
                 }
             }
         }
@@ -207,9 +215,9 @@ void imprimirMenuPrincipal(){ //menu
     imprimirTitulo();
     printf("\n Bienvenido!\n Que quieres hacer? \n");
     printf("\n");
-    printf("\t[1] Ver mis tareas.\n");
+    printf("\t[1] Ver las tareas.\n");
     printf("\t[2] Buscar una tarea.\n");
-    printf("\t[3] Agregar una tarea.\n");
+    printf("\t[3] Crear una nueva tarea.\n");
     printf("\t[0] Salir.\n");
     printf("\n");
 }
@@ -219,7 +227,7 @@ void imprimirMenuVer(){ //submenu
     imprimirTitulo();
     printf("\n Claro! Que tareas te gustaria ver?\n");
     printf("\n");
-    printf("\t[1] Todas mis tareas.\n");
+    printf("\t[1] Todas las tareas.\n");
     printf("\t[2] Tareas pendientes.\n");
     printf("\t[3] Tareas en curso.\n");
     printf("\t[4] Tareas terminadas.\n");
@@ -275,9 +283,9 @@ void imprimirTodasLasTareas(){
     system("cls");
     imprimirTitulo();
 
-    if (ultimaTarea != 0) {
+    if (totalTareas != 0) {
         printf("\n Estas son todas tus tareas:\n");
-        for(int i = 0; i < ultimaTarea; i++){ //listar todas las tareas agregadas, empezando por 1
+        for(int i = 0; i < totalTareas; i++){ //listar todas las tareas agregadas, empezando por 1
             printf("\n\t [%d] %s\n",i+1,Tareas[i].titulo);
         }
         printf("\n");
@@ -293,7 +301,7 @@ void imprimirTareasPendientes(){
     //validacion
 
     int control = 0;
-    for(int i = 0; i < ultimaTarea; i++){ //encontrar una tarea pendiente
+    for(int i = 0; i < totalTareas; i++){ //encontrar una tarea pendiente
         if (Tareas[i].estado == 1){
             control = 1;
         }
@@ -304,9 +312,9 @@ void imprimirTareasPendientes(){
     system("cls");
     imprimirTitulo();
 
-    if (ultimaTarea != 0 && control != 0) {
+    if (totalTareas != 0 && control != 0) {
         printf("\n Estas son tus tareas pendientes:\n");
-        for(int i = 0; i < ultimaTarea; i++){ //listar todas las tareas pendientes
+        for(int i = 0; i < totalTareas; i++){ //listar todas las tareas pendientes
             if (Tareas[i].estado == 1){
                 printf("\n\t [%d] %s\n",i+1,Tareas[i].titulo);
             }
@@ -324,7 +332,7 @@ void imprimirTareasEnCurso(){
     //validacion
 
     int control = 0;
-    for(int i = 0; i < ultimaTarea; i++){ //encontrar una tarea en curso
+    for(int i = 0; i < totalTareas; i++){ //encontrar una tarea en curso
         if (Tareas[i].estado == 2){
             control = 1;
         }
@@ -335,9 +343,9 @@ void imprimirTareasEnCurso(){
     system("cls");
     imprimirTitulo();
 
-    if (ultimaTarea != 0 && control != 0) {
+    if (totalTareas != 0 && control != 0) {
         printf("\n Estas son tus tareas en curso:\n");
-        for(int i = 0; i < ultimaTarea; i++){ //listar todas las tareas en curso
+        for(int i = 0; i < totalTareas; i++){ //listar todas las tareas en curso
             if (Tareas[i].estado == 2){
                 printf("\n\t [%d] %s\n",i+1,Tareas[i].titulo);
             }
@@ -355,7 +363,7 @@ void imprimirTareasTerminadas(){
     //validacion
 
     int control = 0;
-    for(int i = 0; i < ultimaTarea; i++){ //encontrar tarea terminada
+    for(int i = 0; i < totalTareas; i++){ //encontrar tarea terminada
         if (Tareas[i].estado == 3){
             control = 1;
         }
@@ -366,9 +374,9 @@ void imprimirTareasTerminadas(){
     system("cls");
     imprimirTitulo();
 
-    if (ultimaTarea != 0 && control != 0) {
+    if (totalTareas != 0 && control != 0) {
         printf("\n Estas son tus tareas terminadas:\n");
-        for(int i = 0; i < ultimaTarea; i++){ //listar todas las tareas terminadas
+        for(int i = 0; i < totalTareas; i++){ //listar todas las tareas terminadas
             if (Tareas[i].estado == 3){
                 printf("\n\t [%d] %s\n",i+1,Tareas[i].titulo);
             }
@@ -384,11 +392,11 @@ void imprimirTareasTerminadas(){
 
 //  SWITCHS
 void listarTareas(int opcion){
+    int sel;
     switch (opcion) {
         case 0:
             break;
         case 1: //Todas
-            int sel;
             do{
                 imprimirTodasLasTareas();
                 scanf("%d",&sel);
@@ -463,9 +471,11 @@ void listarTareas(int opcion){
 }
 
 void seleccionarMenus(int opcion){
+    int sel;
     switch (opcion) {
+        case 0:
+            break;
         case 1: //Ver
-            int sel;
             do{
                 imprimirMenuVer();
                 scanf("%d",&sel);
