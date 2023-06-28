@@ -5,11 +5,11 @@
 
 /*
  *      NOTAS:
- *          • TODAS LAS TAREAS SE MOSTRARAN CON UN NUMERO SUPERIOR A SU POSICION REAL EN EL ARREGLO
+ *          â€¢ TODAS LAS TAREAS SE MOSTRARAN CON UN NUMERO SUPERIOR A SU POSICION REAL EN EL ARREGLO
  *              --> [POSICION VERDADERA + 1] TITULO DE LA TAREA
- *          • TOTALTAREAS ALMACENA EL TOTAL DE LAS TAREAS AGREGADAS, POR ESO INICIA EN 0.
- *          Y ADEMÁS GUARDA LA POSICIÓN SIGUIENTE A LA DE LA ÚLTIMA TAREA AGREGADA.
- *          • SI EL USUARIO DESEA VER EL DETALLE DE UNA TAREA QUE NO EXISTE O AUN NO SE HA AGREGADO,
+ *          â€¢ TOTALTAREAS ALMACENA EL TOTAL DE LAS TAREAS AGREGADAS, POR ESO INICIA EN 0.
+ *          Y ADEMÃS GUARDA LA POSICIÃ“N SIGUIENTE A LA DE LA ÃšLTIMA TAREA AGREGADA.
+ *          â€¢ SI EL USUARIO DESEA VER EL DETALLE DE UNA TAREA QUE NO EXISTE O AUN NO SE HA AGREGADO,
  *          ENTONCES SE MUESTRA UN MENSAJE. (NO AGREGADO POR FALTA DE TIEMPO)
  *
  */
@@ -36,8 +36,8 @@ void imprimirTitulo(){ //TITULO DEL TRABAJO Y AUTORES
      *      ChatGPT *on*
      * INTEGRANTES DEL EQUIPO:
      *      Avaca, Marcos.
-     *      Quiroga, Román.
-     *      Videla Guliotti, Tobías.
+     *      Quiroga, RomÃ¡n.
+     *      Videla Guliotti, TobÃ­as.
      */
 }
 
@@ -193,12 +193,12 @@ void buscarTarea(){ //busca una tarea introduciendo su titulo
                 printf("\t [%d] %s \n",i+1,Tareas[i].titulo);
                 control = 1;
             }
-            //imprimir una sola vez el mensaje y solo si existe más de una tarea creada:
+            //imprimir una sola vez el mensaje y solo si existe mÃ¡s de una tarea creada:
             if (totalTareas > 1 && control < 2){
                 /*  PROBLEMA:
-                 *      SI HAY MÁS DE UNA TAREA CREADA, Y SE BUSCA UNA TAREA QUE NO TIENE PARECIDAS,
-                 *      SE IMPRIMIRÁ IGUALMENTE EL MENSAJE DE DEBAJO. SE DECIDIÓ (POR TIEMPO) DEJARLO
-                 *      ASÍ, PERO PODRÍA ESTABLECERSE UNA SEGUNDA VARIABLE DE CONTROL PARA SOLUCIONAR
+                 *      SI HAY MÃS DE UNA TAREA CREADA, Y SE BUSCA UNA TAREA QUE NO TIENE PARECIDAS,
+                 *      SE IMPRIMIRÃ IGUALMENTE EL MENSAJE DE DEBAJO. SE DECIDIÃ“ (POR TIEMPO) DEJARLO
+                 *      ASÃ, PERO PODRÃA ESTABLECERSE UNA SEGUNDA VARIABLE DE CONTROL PARA SOLUCIONAR
                  *      ESTE PROBLEMA.
                  */
                 printf(" Estas son las tareas parecidas : \n ");
@@ -256,7 +256,7 @@ void imprimirMenuDetalles(int tareaSeleccionada){ //submenu
     printf("\n Menu detalles de \"%s\":\n\n",Tareas[tareaSeleccionada-1].titulo);
     printf("\t %s \n\n",Tareas[tareaSeleccionada-1].titulo);
     printf("\t %s \n\n\n",Tareas[tareaSeleccionada-1].descripcion);
-    switch(Tareas[tareaSeleccionada-1].estado){ //tienen un espacio menos para alinear mejor, porque gets() les agrega un espacio al principio por alguna razón...
+    switch(Tareas[tareaSeleccionada-1].estado){ //tienen un espacio menos para alinear mejor, porque gets() les agrega un espacio al principio por alguna razÃ³n...
         case 1:
             printf("\t Estado:              Pendiente \n");
             break;
