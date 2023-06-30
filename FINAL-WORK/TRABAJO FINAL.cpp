@@ -4,7 +4,7 @@
 #define mil 1000
 
 /*
- *      NOTAS:
+ *      NOTAS: (editado por Tobías)
  *          • TODAS LAS TAREAS SE MOSTRARAN CON UN NUMERO SUPERIOR A SU POSICION REAL EN EL ARREGLO
  *              --> [POSICION VERDADERA + 1] TITULO DE LA TAREA
  *          • TOTALTAREAS ALMACENA EL TOTAL DE LAS TAREAS AGREGADAS, POR ESO INICIA EN 0.
@@ -79,7 +79,7 @@ void imprimirMenuVer(){ //submenu
 
 void imprimirMenuBuscar(){
     system("cls");
-    printTitle();
+    imprimirTitulo();
     printf("\n Okey! Escribe una palabra o frase para comenzar a buscar: ");
 }
 
@@ -134,122 +134,13 @@ void imprimirMenuDetalles(int tareaSeleccionada){ //submenu
     printf("\n Presiona 0 para volver, o 1 para editar.\n");
 }
 
-void imprimirMenuEditar(){
+void imprimirMenuEditar(int tareaSeleccionada){
     //tareaSeleccionada - 1 es la posicion real de la tarea que fue seleccionada
     system("cls");
     imprimirTitulo();
     printf("\n Estas editando la tarea \"%s\".\n",Tareas[tareaSeleccionada-1].titulo);
     printf("\t -Escribe un 5 (cinco) para no editar un atributo.\n");
     printf("\t -Escribe un 6 (seis) para dejar un atributo en blanco.\n");
-}
-
-//  TAREAS
-void imprimirTodasLasTareas(){
-
-    system("cls");
-    imprimirTitulo();
-
-    if (totalTareas != 0) {
-        printf("\n Estas son todas tus tareas:\n");
-        for(int i = 0; i < totalTareas; i++){ //listar todas las tareas agregadas, empezando por 1
-            printf("\n\t [%d] %s\n",i+1,Tareas[i].titulo);
-        }
-        printf("\n");
-        imprimirAtrasODetalles();
-    } else {
-        imprimirNingunaTarea();
-    }
-    printf("\n");
-}
-
-void imprimirTareasPendientes(){
-    //validacion
-
-    int control = 0;
-    for(int i = 0; i < totalTareas; i++){ //encontrar una tarea pendiente
-        if (Tareas[i].estado == 1){
-            control = 1;
-        }
-    }
-
-    //imprimir
-
-    system("cls");
-    imprimirTitulo();
-
-    if (totalTareas != 0 && control != 0) {
-        printf("\n Estas son tus tareas pendientes:\n");
-        for(int i = 0; i < totalTareas; i++){ //listar todas las tareas pendientes
-            if (Tareas[i].estado == 1){
-                printf("\n\t [%d] %s\n",i+1,Tareas[i].titulo);
-            }
-        }
-        printf("\n");
-        imprimirAtrasODetalles();
-    } else {
-        imprimirNingunaTarea();
-    }
-    printf("\n");
-}
-
-void imprimirTareasEnCurso(){
-    //validacion
-
-    int control = 0;
-    for(int i = 0; i < totalTareas; i++){ //encontrar una tarea en curso
-        if (Tareas[i].estado == 2){
-            control = 1;
-        }
-    }
-
-    //imprimir
-
-    system("cls");
-    imprimirTitulo();
-
-    if (totalTareas != 0 && control != 0) {
-        printf("\n Estas son tus tareas en curso:\n");
-        for(int i = 0; i < totalTareas; i++){ //listar todas las tareas en curso
-            if (Tareas[i].estado == 2){
-                printf("\n\t [%d] %s\n",i+1,Tareas[i].titulo);
-            }
-        }
-        printf("\n");
-        imprimirAtrasODetalles();
-    } else {
-        imprimirNingunaTarea();
-    }
-    printf("\n");
-}
-
-void imprimirTareasTerminadas(){
-    //validacion
-
-    int control = 0;
-    for(int i = 0; i < totalTareas; i++){ //encontrar tarea terminada
-        if (Tareas[i].estado == 3){
-            control = 1;
-        }
-    }
-
-    //imprimir
-
-    system("cls");
-    imprimirTitulo();
-
-    if (totalTareas != 0 && control != 0) {
-        printf("\n Estas son tus tareas terminadas:\n");
-        for(int i = 0; i < totalTareas; i++){ //listar todas las tareas terminadas
-            if (Tareas[i].estado == 3){
-                printf("\n\t [%d] %s\n",i+1,Tareas[i].titulo);
-            }
-        }
-        printf("\n");
-        imprimirAtrasODetalles();
-    } else {
-        imprimirNingunaTarea();
-    }
-    printf("\n");
 }
 
 void imprimirTareasBuscadas(char *clave){
@@ -260,7 +151,6 @@ void imprimirTareasBuscadas(char *clave){
         }
     }
 }
-
 
 //  FUNCIONES
 void agregarTarea(){ //crea una tarea introduciendo sus atributos
@@ -307,7 +197,7 @@ void editarTarea(int tareaSeleccionada){ //edita una tarea introduciendo sus atr
     int nuevoEstado;
     int nuevaDificultad;
 
-    imprimirMenuEditar();
+    imprimirMenuEditar(tareaSeleccionada);
 
     printf("\n\t Nuevo Titulo (Max. 100 caracteres) : ");
     fflush(stdin);
@@ -376,6 +266,8 @@ void buscarTarea(){ //busca una tarea buscando una coincidencia de la clave con 
     int encontrada = 0;
     char clave[500];
 
+    imprimirMenuBuscar();
+
     //obtener clave de busqueda
     fflush(stdin);
     gets(clave);
@@ -396,7 +288,75 @@ void buscarTarea(){ //busca una tarea buscando una coincidencia de la clave con 
     }
 }
 
+void seleccionarTarea(int sel){
+    if (sel != 0){
+        do {
+            if (sel <= totalTareas && totalTareas > 0) {
+                int tareaSeleccionada = sel;
+                imprimirMenuDetalles(tareaSeleccionada);
+                scanf("%d",&sel);
+                if (sel == 1) {
+                    editarTarea(tareaSeleccionada);
+                }
+            } else { //si el usuario ingresa un nro de tarea que no existe:
+                imprimirOpcionIncorrecta();
+            }
+            sel = 0;
+        } while (sel != 0);
+    }
+}
+
 //  SWITCHS
+void imprimirTareas(int opcion){
+    //variables
+    int filtro = 0;
+
+    //busqueda de tareas por estado
+    for(int i = 0; i < totalTareas; i++){
+        if (Tareas[i].estado == opcion-1){
+            filtro = opcion-1;
+        }
+    }
+
+    //imprimir resultados
+    system("cls");
+    imprimirTitulo();
+
+    switch (filtro) { //imprimir mensaje
+        case 1:
+            printf("\n Estas son tus tareas pendientes:\n");
+            break;
+        case 2:
+            printf("\n Estas son tus tareas en curso:\n");
+            break;
+        case 3:
+            printf("\n Estas son tus tareas terminadas:\n");
+            break;
+        default:
+            printf("\n Estas son todas tus tareas:\n");
+            break;
+    }
+
+    if (totalTareas != 0) { //imprimir tareas filtradas
+        for(int i = 0; i < totalTareas; i++){ //listar todas las tareas filtradas
+            if (filtro == 0){
+                printf("\n\t [%d] %s\n",i+1,Tareas[i].titulo);
+            } else {
+                if (Tareas[i].estado == opcion-1){
+                    printf("\n\t [%d] %s\n",i+1,Tareas[i].titulo);
+                } else {
+                    imprimirNingunaTarea();
+                }
+            }
+        }
+        printf("\n");
+        imprimirAtrasODetalles();
+    } else {
+        imprimirNingunaTarea();
+    }
+    printf("\n");
+}
+
 void listarTareas(int opcion){
     int sel;
     switch (opcion) {
@@ -404,86 +364,30 @@ void listarTareas(int opcion){
             break;
         case 1: //Todas
             do{
-                imprimirTodasLasTareas();
+                imprimirTareas(opcion);
                 scanf("%d",&sel);
-                if (sel != 0){
-                    do {
-                        if (sel <= totalTareas && totalTareas > 0) {
-                            int tareaSeleccionada = sel;
-                            imprimirMenuDetalles(tareaSeleccionada);
-                            scanf("%d",&sel);
-                            if (sel == 1) {
-                                editarTarea(tareaSeleccionada);
-                            }
-                        } else { //si el usuario ingresa un nro de tarea que no existe:
-                            imprimirOpcionIncorrecta();
-                        }
-                        sel = 0;
-                    } while (sel != 0);
-                }
+                seleccionarTarea(sel);
             } while (sel != 0);
             break;
         case 2: //Pendientes
             do{
-                imprimirTareasPendientes();
+                imprimirTareas(opcion);
                 scanf("%d",&sel);
-                if (sel != 0){
-                    do {
-                        if (sel <= totalTareas && totalTareas > 0) {
-                            int tareaSeleccionada = sel;
-                            imprimirMenuDetalles(tareaSeleccionada);
-                            scanf("%d",&sel);
-                            if (sel == 1) {
-                                editarTarea(tareaSeleccionada);
-                            }
-                        } else { //si el usuario ingresa un nro de tarea que no existe:
-                            imprimirOpcionIncorrecta();
-                        }
-                        sel = 0;
-                    } while (sel != 0);
-                }
+                seleccionarTarea(sel);
             } while (sel != 0);
             break;
         case 3: //En Curso
             do{
-                imprimirTareasEnCurso();
+                imprimirTareas(opcion);
                 scanf("%d",&sel);
-                if (sel != 0){
-                    do {
-                        if (sel <= totalTareas && totalTareas > 0) {
-                            int tareaSeleccionada = sel;
-                            imprimirMenuDetalles(tareaSeleccionada);
-                            scanf("%d",&sel);
-                            if (sel == 1) {
-                                editarTarea(tareaSeleccionada);
-                            }
-                        } else { //si el usuario ingresa un nro de tarea que no existe:
-                            imprimirOpcionIncorrecta();
-                        }
-                        sel = 0;
-                    } while (sel != 0);
-                }
+                seleccionarTarea(sel);
             } while (sel != 0);
             break;
         case 4: //Terminadas
             do{
-                imprimirTareasTerminadas();
+                imprimirTareas(opcion);
                 scanf("%d",&sel);
-                if (sel != 0){
-                    do {
-                        if (sel <= totalTareas && totalTareas > 0) {
-                            int tareaSeleccionada = sel;
-                            imprimirMenuDetalles(tareaSeleccionada);
-                            scanf("%d",&sel);
-                            if (sel == 1) {
-                                editarTarea(tareaSeleccionada);
-                            }
-                        } else { //si el usuario ingresa un nro de tarea que no existe:
-                            imprimirOpcionIncorrecta();
-                        }
-                        sel = 0;
-                    } while (sel != 0);
-                }
+                seleccionarTarea(sel);
             } while (sel != 0);
             break;
         default:
@@ -508,21 +412,7 @@ void seleccionarMenus(int opcion){
             do{
                 buscarTarea();
                 scanf("%d",&sel);
-                if (sel != 0){
-                    do {
-                        if (sel <= totalTareas && totalTareas > 0) {
-                            int tareaSeleccionada = sel;
-                            imprimirMenuDetalles(tareaSeleccionada);
-                            scanf("%d",&sel);
-                            if (sel == 1) {
-                                editarTarea(tareaSeleccionada);
-                            }
-                        } else { //si el usuario ingresa un nro de tarea que no existe:
-                            imprimirOpcionIncorrecta();
-                        }
-                        sel = 0;
-                    } while (sel != 0);
-                }
+                seleccionarTarea(sel);
             } while (sel != 0);
             break;
         case 3: //Agregar
