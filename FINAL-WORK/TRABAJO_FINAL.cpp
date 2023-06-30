@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
+
 #define mil 1000
 
 /*
@@ -9,8 +11,7 @@
  *              --> [POSICION VERDADERA + 1] TITULO DE LA TAREA
  *          • TOTALTAREAS ALMACENA EL TOTAL DE LAS TAREAS AGREGADAS, POR ESO INICIA EN 0.
  *          Y ADEMÁS GUARDA LA POSICIÓN SIGUIENTE A LA DE LA ÚLTIMA TAREA AGREGADA.
- *          • SI EL USUARIO DESEA VER EL DETALLE DE UNA TAREA QUE NO EXISTE O AUN NO SE HA AGREGADO,
- *          ENTONCES SE MUESTRA UN MENSAJE. (NO AGREGADO POR FALTA DE TIEMPO)
+ *          • EL USUARIO SIEMPRE QUE ELIJA LA OPCIÓN 0 VOLVERÁ A LA PANTALLA ANTERIOR.
  *
  */
 
@@ -20,6 +21,7 @@ struct Tarea {
     int dificultad; //[1]Facil - [2]Media - [3]Dificil
     char descripcion[500]; //Descripcion de la tarea
     char titulo[100]; //Titulo de la tarea
+    time_t fechaCreacion;
 
 };
 
@@ -130,6 +132,12 @@ void imprimirMenuDetalles(int tareaSeleccionada){ //submenu
             printf("\t Dificultad:          Sin datos \n");
             break;
     }
+
+    //crear fecha de calendario manipulable para mostrar
+    struct tm *FechaCreacion = localtime(&Tareas[tareaSeleccionada-1].fechaCreacion);
+    //imprimir fecha de creación en formato DD/MM/YYYY
+    printf("\t Creacion:            %d/%d/%d \n",FechaCreacion->tm_mday,FechaCreacion->tm_mon,FechaCreacion->tm_year+1900);
+
     printf("\n");
     printf("\n Presiona 0 para volver, o 1 para editar.\n");
 }
@@ -147,6 +155,7 @@ void imprimirMenuEditar(int tareaSeleccionada){ //submenu
 void agregarTarea(){ //crea una tarea introduciendo sus atributos
     int dificultad;
     int estado;
+    time_t fechaLocal;
 
     imprimirMenuAgregar();
 
@@ -158,6 +167,14 @@ void agregarTarea(){ //crea una tarea introduciendo sus atributos
     printf("\n\t Descripcion (Max. 500 caracteres) : ");
     gets(Tareas[totalTareas].descripcion);
 
+    printf("\n\t Estado ([1]Pendiente - [2]En curso - [3]Terminada - [4]Cancelada) : ");
+    do { //para que el usuario no ingrese un valor incorrecto
+        scanf("%d",&estado);
+        if (estado < 5 && estado > 0) {
+            Tareas[totalTareas].estado = estado;
+        }
+    } while (estado > 4 || estado < 1);
+
     printf("\n\t Dificultad (1 - 2 - 3) : ");
     do { //para que el usuario no ingrese un valor incorrecto
         scanf("%d",&dificultad);
@@ -166,14 +183,7 @@ void agregarTarea(){ //crea una tarea introduciendo sus atributos
         }
     } while (dificultad > 3 || dificultad < 1);
 
-
-    printf("\n\t Estado ([1]Pendiente - [2]En curso - [3]Terminada - [4]Cancelada) : ");
-    do { //para que el usuario no ingrese un valor incorrecto
-        scanf("%d",&estado);
-        if (estado < 5 && estado > 0) {
-            Tareas[totalTareas].estado = estado;
-        }
-    } while (estado > 4 || estado < 1);
+    time(&Tareas[totalTareas].fechaCreacion);
 
     totalTareas++;
 
