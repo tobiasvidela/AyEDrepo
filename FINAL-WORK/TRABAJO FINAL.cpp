@@ -309,12 +309,17 @@ void seleccionarTarea(int sel){
 //  SWITCHS
 void imprimirTareas(int opcion){
     //variables
-    int filtro = 0;
+    int filtro = opcion-1;
+    int encontradas = 0; //control para verificar si existen tareas con ese estado
 
-    //busqueda de tareas por estado
-    for(int i = 0; i < totalTareas; i++){
-        if (Tareas[i].estado == opcion-1){
-            filtro = opcion-1;
+    //encontrar tareas con el estado elegido
+    if (filtro == 0) { //si eligió ver todas las tareas
+        encontradas = 1;
+    } else { //si escogió algún estado
+        for(int i = 0; i < totalTareas; i++){
+            if (Tareas[i].estado == filtro){ //si encontró tareas con ese estado
+                encontradas = 1;
+            }
         }
     }
 
@@ -322,33 +327,35 @@ void imprimirTareas(int opcion){
     system("cls");
     imprimirTitulo();
 
-    switch (filtro) { //imprimir mensaje
-        case 1:
-            printf("\n Estas son tus tareas pendientes:\n");
-            break;
-        case 2:
-            printf("\n Estas son tus tareas en curso:\n");
-            break;
-        case 3:
-            printf("\n Estas son tus tareas terminadas:\n");
-            break;
-        default:
-            printf("\n Estas son todas tus tareas:\n");
-            break;
-    }
+    if (totalTareas != 0 && encontradas != 0) {
 
-    if (totalTareas != 0) { //imprimir tareas filtradas
-        for(int i = 0; i < totalTareas; i++){ //listar todas las tareas filtradas
+        switch (filtro) { //imprimir mensaje
+            case 0:
+                printf("\n Estas son todas tus tareas:\n");
+                break;
+            case 1:
+                printf("\n Estas son tus tareas pendientes:\n");
+                break;
+            case 2:
+                printf("\n Estas son tus tareas en curso:\n");
+                break;
+            case 3:
+                printf("\n Estas son tus tareas terminadas:\n");
+                break;
+            default:
+                break;
+        }
+
+        for(int i = 0; i < totalTareas; i++){ //imprimir tareas filtradas
             if (filtro == 0){
                 printf("\n\t [%d] %s\n",i+1,Tareas[i].titulo);
             } else {
-                if (Tareas[i].estado == opcion-1){
+                if (Tareas[i].estado == filtro){ //si encontró tareas con ese estado
                     printf("\n\t [%d] %s\n",i+1,Tareas[i].titulo);
-                } else {
-                    imprimirNingunaTarea();
                 }
             }
         }
+
         printf("\n");
         imprimirAtrasODetalles();
     } else {
