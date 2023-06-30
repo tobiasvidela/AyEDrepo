@@ -29,7 +29,7 @@ int totalTareas = 0; //guarda la primera posicion disponible en el arreglo despu
 //                  FUNCIONES Y PROCEDIMIENTOS
 
 //  MENSAJES
-void imprimirTitulo(){ //TITULO DEL TRABAJO Y AUTORES
+void imprimirTitulo(){
     printf("\t\t\t ADMINISTRADOR DE TAREAS | TOBIAS \n");
 }
 
@@ -46,7 +46,7 @@ void imprimirAtrasODetalles(){ //mensaje
     printf("\n\t [...] Seleccionar una tarea para ir a sus detalles.\n");
 }
 
-void imprimirNingunaTarea(){
+void imprimirNingunaTarea(){ //mensaje
     printf("\n No se encontro ninguna tarea.\n");
     printf("\n Presiona 0 para volver.\n");
 }
@@ -77,13 +77,13 @@ void imprimirMenuVer(){ //submenu
     printf("\n");
 }
 
-void imprimirMenuBuscar(){
+void imprimirMenuBuscar(){ //submenu
     system("cls");
     imprimirTitulo();
     printf("\n Okey! Escribe una palabra o frase para comenzar a buscar: ");
 }
 
-void imprimirMenuAgregar(){
+void imprimirMenuAgregar(){ //submenu
     system("cls");
     imprimirTitulo();
     printf("\n Bien! Estas agregando una tarea. \n");
@@ -134,22 +134,13 @@ void imprimirMenuDetalles(int tareaSeleccionada){ //submenu
     printf("\n Presiona 0 para volver, o 1 para editar.\n");
 }
 
-void imprimirMenuEditar(int tareaSeleccionada){
+void imprimirMenuEditar(int tareaSeleccionada){ //submenu
     //tareaSeleccionada - 1 es la posicion real de la tarea que fue seleccionada
     system("cls");
     imprimirTitulo();
     printf("\n Estas editando la tarea \"%s\".\n",Tareas[tareaSeleccionada-1].titulo);
     printf("\t -Escribe un 5 (cinco) para no editar un atributo.\n");
     printf("\t -Escribe un 6 (seis) para dejar un atributo en blanco.\n");
-}
-
-void imprimirTareasBuscadas(char *clave){
-    printf("\n Estas son las tareas encontradas: \n");
-    for(int i = 0; i < totalTareas; i++){ //listar todas las tareas coincidentes con la clave
-        if (strstr(Tareas[i].titulo,clave) != NULL || strstr(Tareas[i].descripcion,clave) != NULL) {
-            printf("\n\t [%d] %s\n",i+1,Tareas[i].titulo);
-        }
-    }
 }
 
 //  FUNCIONES
@@ -262,6 +253,15 @@ void editarTarea(int tareaSeleccionada){ //edita una tarea introduciendo sus atr
 
 }
 
+void imprimirTareasBuscadas(char *clave){
+    printf("\n Estas son las tareas encontradas: \n");
+    for(int i = 0; i < totalTareas; i++){ //listar todas las tareas coincidentes con la clave
+        if (strstr(Tareas[i].titulo,clave) != NULL || strstr(Tareas[i].descripcion,clave) != NULL) {
+            printf("\n\t [%d] %s\n",i+1,Tareas[i].titulo);
+        }
+    }
+}
+
 void buscarTarea(){ //busca una tarea buscando una coincidencia de la clave con su titulo o descripcion
     int encontrada = 0;
     char clave[500];
@@ -298,7 +298,7 @@ void seleccionarTarea(int sel){
                 if (sel == 1) {
                     editarTarea(tareaSeleccionada);
                 }
-            } else { //si el usuario ingresa un nro de tarea que no existe:
+            } else { //si el usuario ingresa un nro de tarea que no existe
                 imprimirOpcionIncorrecta();
             }
             sel = 0;
